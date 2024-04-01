@@ -203,12 +203,16 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Price</th>
+                            <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Vendor Address</th>
+                        
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Vendor Phone Number</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Manufacturer</th>
-                        <!-- <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Vendor Phone Number</th> -->
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status</th>
@@ -219,13 +223,17 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Note: Change this to available items!! using inventoryand querying through lab_name? -->
-                    {% for equipment in equipment_issued %}
+                    {% for equipment in inventory %}
                     <tr>
-                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[1] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[6] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[8] }}</td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -242,6 +250,9 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Grant Id</th>
+                            <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Donor</th>    
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Donor Organization</th>
@@ -255,13 +266,13 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Note: Change this to the actual grants!! -->
-                    {% for equipment in equipment_issued %}
+                    {% for equipment in grants %}
                     <tr>
-                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

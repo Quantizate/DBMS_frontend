@@ -33,7 +33,7 @@
   <nav class="text-gray-600 body-font shadow-lg bg-white">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
       <div class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-        <img src="images/logo.png" alt="logo" class="w-1/12 mr-4">
+        <img src="../static/images/logo.png" alt="logo" class="w-1/12 mr-4">
         <h1 class="text-2xl font-bold">Lab Management</h1>
       </div>
 
@@ -82,33 +82,40 @@
         <input type="text" name="name" id="name" class="form-input mt-1 block w-full border-gray-400">
       </div> -->
       <div class="mb-4">
-        <label for="lab_name" class="block text-gray-700 font-bold mb-2">Lab:</label>
-        <select name="lab_name" id="lab" class="form-select mt-1 block w-full border-gray-400">
-          <option value="Biology Lab"> Biology Lab</option>
-          <option value="Chemistry Lab">Chemistry Lab</option>
-          <option value="Physics Lab ">Physics Lab</option>
-          <option value="Computer Lab">Computer Lab</option>
-          <option value="Engineering Lab">Engineering Lab</option>
-          <option value="Psychology  Lab">Psychology Lab</option>
-          <option value="Geology Lab">Geology Lab</option>
-          <option value="Botany Lab">Botany Lab</option>
-          <option value="Zoology Lab">Zoology Lab</option>
-          <option value="Microbiology Lab">Microbiology Lab</option>
-          <option value="Anatomy Lab">Anatomy Lab</option>
-          <option value="Ecology Lab">Ecology Lab</option>
-          <option value="Neuroscience Lab">Neuroscience Lab</option>
-          <option value="Genetics Lab">Genetics Lab</option>
-          <option value="Biochemistry Lab">Biochemistry Lab</option>
+        <label for="Lab_Name" class="block text-gray-700 font-bold mb-2">Lab Name:</label>
+        <select name="Lab_Name" id="Lab_Name" class="form-select mt-1 block w-full border-gray-400">
+            <option value = "Anatomy Lab" > Anatomy Lab</option>
+            <option value="Biochemistry Lab">Biochemistry Lab</option>
+            <option value="Biology Lab">Biology Lab</option>
+            <option value="Botany Lab">Botany Lab</option>
+            <option value="Chemistry Lab">Chemistry Lab</option>
+            <option value="Computer Lab">Computer Lab</option>
+            <option value="Ecology Lab">Ecology Lab</option>
+            <option value="Engineering Lab">Engineering Lab</option>
+            <option value="Genetics Lab">Genetics Lab</option>
+            <option value="Geology Lab">Geology Lab</option>
+            <option value="Microbiology Lab">Microbiology Lab</option>
+            <option value="Neuroscience Lab">Neuroscience Lab</option>
+            <option value="Physics Lab">Physics Lab</option>
+            <option value="Psychology Lab">Psychology Lab</option>
+            <option value="Zoology Lab">Zoology Lab</option>
         </select>
-      </div>
-      <div class="mb-4">
-        <label for="time_from" class="block text-gray-700 font-bold mb-2">Time From:</label>
-        <input type="time" name="time_from" id="time_from" class="form-input mt-1 block w-full border-gray-400">
-      </div>
-      <div class="mb-4">
-        <label for="time_to" class="block text-gray-700 font-bold mb-2">Time To:</label>
-        <input type="time" name="time_to" id="time_to" class="form-input mt-1 block w-full border-gray-400">
-      </div>
+    </div>
+    <div class="mb-4">
+      <label for="time_slot" class="block text-gray-700 font-bold mb-2">Time Slot:</label>
+      <select name="time_slot" id="time_slot" class="form-select mt-1 block w-full border-gray-400">
+        <option value="Slot 1">8:30-10:00</option>
+        <option value="Slot 2">10:00-11:30</option>
+        <option value="Slot 3">11:30-13:00</option>
+        <option value="Slot 4">13:00-14:00</option>
+        <option value="Slot 5">14:00-15:30</option>
+        <option value="Slot 6">15:30-17:00</option>
+        <option value="Slot 7">17:00-18:30</option>
+        <option value="Slot 8">18:30-20:00</option>
+        <option value="Slot 9">20:00-21:30</option>
+        <option value="Slot 10">21:30-23:00</option>
+      </select>
+    </div>
       <div class="mb-4">
         <label for="date" class="block text-gray-700 font-bold mb-2">Date:</label>
         <input type="date" name="date" id="date" class="form-input mt-1 block w-full border-gray-400">
@@ -138,6 +145,17 @@
           <option value="laptop">Laptop</option>
           <option value="projector">Projector</option>
           <option value="microscope">Microscope</option>
+          <option value="autoclave">Autoclave</option>
+          <option value="water bath">Water Bath</option>
+          <option value="fume hood">Fume Hood</option>
+          <option value="centrifuge">Centrifuge</option>
+          <option value="hot plate">Hot Plate</option>
+          <option value="PCR machine">PCR Machine</option>
+          <option value="rotary evaporator">Rotary Evaporator</option>
+          <option value="desiccator">Desiccator</option>
+          <option value="microtome">Microtome</option>
+          <option value="liquid handling robot">Liquid Handling Robot</option>
+
         </select>
       </div>
       <div class="mb-4">
@@ -186,7 +204,7 @@
       <div class="mb-4">
   
         <!-- work on this table -->
-        <!-- <div class="mb-8 mt-4">
+        <div class="mb-8 mt-4">
           <h2 class="text-lg font-bold mb-2">Selected Equipment</h2>
           <table id="selectedEquipment" class="min-w-full divide-y divide-gray-200" style="display: none;">
             <thead class="bg-gray-50">
@@ -202,10 +220,8 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-               Need to add the sql query for the same to extract the data based on the selected ID -->
-              <!-- Also need to change the fields respectively -->
-              <!-- Initially the selected value is '', so based on that selectively run the SQL query, may run into errors -->
-              <!-- {% for equipment in equipment_issued %}
+               
+               {% for equipment in equipment_issued %}
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
@@ -215,8 +231,8 @@
               {% endfor %}
             </tbody>
           </table>
-        </div> --> 
-        <div class="mb-4">
+        </div> 
+         <div class="mb-4">
           <label for="ID" class="block text-gray-700 font-bold mb-2">ID</label>
           <input type="text" name="ID" id="ID"
             class="form-input mt-1 block w-full border-gray-400">
@@ -238,7 +254,8 @@
         <button type="submit"
           class="border border-green-700 bg-green-700 hover:border-green-600 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Return</button>
       </div>
-    </form>
+    </form> 
+    
 
   </div>
 
@@ -271,33 +288,41 @@
         <input type="text" name="name" id="name" class="form-input mt-1 block w-full border-gray-400">
       </div> -->
       <div class="mb-4">
-        <label for="lab_name" class="block text-gray-700 font-bold mb-2">Lab:</label>
-        <select name="lab_name" id="lab" class="form-select mt-1 block w-full border-gray-400">
-          <option value="Biology Lab"> Biology Lab</option>
-          <option value="Chemistry Lab">Chemistry Lab</option>
-          <option value="Physics Lab ">Physics Lab</option>
-          <option value="Computer Lab">Computer Lab</option>
-          <option value="Engineering Lab">Engineering Lab</option>
-          <option value="Psychology  Lab">Psychology Lab</option>
-          <option value="Geology Lab">Geology Lab</option>
-          <option value="Botany Lab">Botany Lab</option>
-          <option value="Zoology Lab">Zoology Lab</option>
-          <option value="Microbiology Lab">Microbiology Lab</option>
-          <option value="Anatomy Lab">Anatomy Lab</option>
-          <option value="Ecology Lab">Ecology Lab</option>
-          <option value="Neuroscience Lab">Neuroscience Lab</option>
-          <option value="Genetics Lab">Genetics Lab</option>
-          <option value="Biochemistry Lab">Biochemistry Lab</option>
+        <label for="Lab_Name" class="block text-gray-700 font-bold mb-2">Lab Name:</label>
+        <select name="Lab_Name" id="Lab_Name" class="form-select mt-1 block w-full border-gray-400">
+            <option value = "Anatomy Lab" > Anatomy Lab</option>
+            <option value="Biochemistry Lab">Biochemistry Lab</option>
+            <option value="Biology Lab">Biology Lab</option>
+            <option value="Botany Lab">Botany Lab</option>
+            <option value="Chemistry Lab">Chemistry Lab</option>
+            <option value="Computer Lab">Computer Lab</option>
+            <option value="Ecology Lab">Ecology Lab</option>
+            <option value="Engineering Lab">Engineering Lab</option>
+            <option value="Genetics Lab">Genetics Lab</option>
+            <option value="Geology Lab">Geology Lab</option>
+            <option value="Microbiology Lab">Microbiology Lab</option>
+            <option value="Neuroscience Lab">Neuroscience Lab</option>
+            <option value="Physics Lab">Physics Lab</option>
+            <option value="Psychology Lab">Psychology Lab</option>
+            <option value="Zoology Lab">Zoology Lab</option>
         </select>
-      </div>
-      <div class="mb-4">
-        <label for="time_from" class="block text-gray-700 font-bold mb-2">Time From:</label>
-        <input type="time" name="time_from" id="time_from" class="form-input mt-1 block w-full border-gray-400">
-      </div>
-      <div class="mb-4">
-        <label for="time_to" class="block text-gray-700 font-bold mb-2">Time To:</label>
-        <input type="time" name="time_to" id="time_to" class="form-input mt-1 block w-full border-gray-400">
-      </div>
+    </div>
+    <div class="mb-4">
+      <label for="time_slot" class="block text-gray-700 font-bold mb-2">Time Slot:</label>
+      <select name="time_slot" id="time_slot" class="form-select mt-1 block w-full border-gray-400">
+        <option value="Slot 1">8:30-10:00</option>
+        <option value="Slot 2">10:00-11:30</option>
+        <option value="Slot 3">11:30-13:00</option>
+        <option value="Slot 4">13:00-14:00</option>
+        <option value="Slot 5">14:00-15:30</option>
+        <option value="Slot 6">15:30-17:00</option>
+        <option value="Slot 7">17:00-18:30</option>
+        <option value="Slot 8">18:30-20:00</option>
+        <option value="Slot 9">20:00-21:30</option>
+        <option value="Slot 10">21:30-23:00</option>
+      </select>
+    </div>
+      
       <div class="mb-4">
         <label for="date" class="block text-gray-700 font-bold mb-2">Date:</label>
         <input type="date" name="date" id="date" class="form-input mt-1 block w-full border-gray-400">
@@ -356,11 +381,28 @@
         <label for="ID" class="block text-gray-700 font-bold mb-2">Equipment ID:</label>
         <input type="text" name="ID" id="ID" class="form-input mt-1 block w-full border-gray-400">
       </div>
-      <div class="mb-4">
-        <label for="Equipment_Name" class="block text gray-700 font-bold mb-2">Equipment Name:</label>
-        <input type="text" name="Equipment_Name" id="Equipment_Name"
-          class="form-input mt-1 block w-full border-gray-400">
-      </div>
+
+          <div class="mb-4">
+            <label for="Equipment_Name" class="block text-gray-700 font-bold mb-2">Equipment Name:</label>
+            <select name="Equipment_Name" id="Equipment_Name" class="form-select mt-1 block w-full border-gray-400">
+              <option value="laptop">Laptop</option>
+              <option value="projector">Projector</option>
+              <option value="microscope">Microscope</option>
+              <option value="microscope">Beaker</option>
+              <option value="autoclave">Autoclave</option>
+              <option value="water bath">Water Bath</option>
+              <option value="fume hood">Fume Hood</option>
+              <option value="centrifuge">Centrifuge</option>
+              <option value="hot plate">Hot Plate</option>
+              <option value="PCR machine">PCR Machine</option>
+              <option value="rotary evaporator">Rotary Evaporator</option>
+              <option value="desiccator">Desiccator</option>
+              <option value="microtome">Microtome</option>
+              <option value="liquid handling robot">Liquid Handling Robot</option>
+    
+            </select>
+          </div>
+
       <div class="mb-4">
         <label for="Price" class="block text-gray-700 font-bold mb-2">Price:</label>
         <input type="number" name="Price" id="Price" class="form-input mt-1 block w-full border-gray-400">
@@ -372,7 +414,7 @@
       </div>
       <div class="mb-4">
         <label for="Vendor_Phone_Number" class="block text-gray-700 font-bold mb-2">Vendor Phone Number:</label>
-        <input type="number" name="Vendor_Phone_Number" id="Vendor_Phone_Number"
+        <input type="tel" name="Vendor_Phone_Number" id="Vendor_Phone_Number"
           class="form-input mt-1 block w-full border-gray-400">
       </div>
       <div class="mb-4">
@@ -387,8 +429,24 @@
       </div>
       <div class="mb-4">
         <label for="Lab_Name" class="block text-gray-700 font-bold mb-2">Lab Name:</label>
-        <input type="text" name="Lab_Name" id="Lab_Name" class="form-input mt-1 block w-full border-gray-400">
-      </div>
+        <select name="Lab_Name" id="Lab_Name" class="form-select mt-1 block w-full border-gray-400">
+            <option value = "Anatomy Lab" > Anatomy Lab</option>
+            <option value="Biochemistry Lab">Biochemistry Lab</option>
+            <option value="Biology Lab">Biology Lab</option>
+            <option value="Botany Lab">Botany Lab</option>
+            <option value="Chemistry Lab">Chemistry Lab</option>
+            <option value="Computer Lab">Computer Lab</option>
+            <option value="Ecology Lab">Ecology Lab</option>
+            <option value="Engineering Lab">Engineering Lab</option>
+            <option value="Genetics Lab">Genetics Lab</option>
+            <option value="Geology Lab">Geology Lab</option>
+            <option value="Microbiology Lab">Microbiology Lab</option>
+            <option value="Neuroscience Lab">Neuroscience Lab</option>
+            <option value="Physics Lab">Physics Lab</option>
+            <option value="Psychology Lab">Psychology Lab</option>
+            <option value="Zoology Lab">Zoology Lab</option>
+        </select>
+    </div>
       <div class="text-center">
         <button type="submit"
           class="border border-green-700 bg-green-700 hover:border-green-600 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Issue

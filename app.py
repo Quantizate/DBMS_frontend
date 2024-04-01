@@ -18,7 +18,7 @@ app.secret_key = 'abcd2123445'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Kaushal@123'
+app.config['MYSQL_PASSWORD'] = '@B203kairavi'
 app.config['MYSQL_DB'] = 'lab_bookings'
 
 mysql = MySQL(app)
@@ -46,9 +46,9 @@ def submit():
         if user:
             name=user[1]
         # Check if the form is for lab booking or equipment issuing
-        if 'lab_name' in details:
+        if 'time_slot' in details:
                 # Lab booking form data
-                lab_name = details['lab_name']
+                lab_name = details['Lab_Name']
                 time_slot = details['time_slot']
                 date= details['date']
                 cur = mysql.connection.cursor()
@@ -115,7 +115,20 @@ def submit():
             # cur.execute("INSERT INTO course (email,Course_ID, Course_Name, Credits) VALUES (%s,%s, %s, %s)", (email,course_id,course_name, credits))
             mysql.connection.commit()    
             cur.close()
-                
+        
+        elif 'Donating_Organization' in details:
+            id=details['ID']
+            lab_name=details['Lab_Name']
+            donor=details['Donor']
+            donating_organization=details['Donating_Organization']
+            amount=details['Amount']
+            receiving_date= details['Receiving_Date']
+            
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO grants (ID, Lab_Name, Donor, Donating_Organization, Amount, Receiving_Date) VALUES (%s, %s, %s, %s, %s, %s)", (id, lab_name, donor, donating_organization, amount, receiving_date))
+            mysql.connection.commit()
+            cur.close()
+               
         else:
                 # print(details)
                 # Equipment issuing form data
@@ -161,8 +174,11 @@ def submit():
                 
         lab_bookings=fetch_lab_bookings(email)
         equipment_issued = fetch_equipment_issued(email)
+        if(type(equipment_issued)==type(None)):
+            equipment_issued=[]
         courses=fetch_courses()
-        return render_template('submit.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses)
+        role=fetch_role(email)
+        return render_template('submit.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses,role=role)
 
 @app.route('/profile')
 def profile():
@@ -177,11 +193,12 @@ def profile():
             return render_template('profile.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses,name=name,role = role)
         elif(role=='professor'):
             courses=fetch_prof_course(email)
-            return render_template('profile.html', lab_bookings=lab_bookings,courses=courses,name=name,role = role)
+            return render_template('profile.html', lab_bookings=lab_bookings,courses=courses,name=name, equipment_issued=[] ,role = role)
         else:
             return render_template('profile.html',name=name,role =role)
     else:
-        return render_template('profile.html',role =role)
+        grants, inventory=fetch_grant_inventory(email)
+        return render_template('profile.html',role =role,grants=grants,inventory=inventory)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -219,7 +236,7 @@ def login():
             if user:
                 session['loggedin'] = True
                 session['email'] = user['Email_ID']
-                return redirect(url_for('profile'))
+                return redirect(url_for('labpage'))
             else:   
                 return render_template('login.html', error="Invalid email or password")
             
@@ -227,7 +244,15 @@ def login():
         return render_template('login.html')
     
     return render_template('login.html')
+
+
+@app.route('/labpage')
+def labpage():
+    if 'loggedin' in session:
+        role=fetch_role(session.get('email'))
+        return render_template('labpage.html', role=role)
     
+    return redirect(url_for('login'))
     
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -267,7 +292,8 @@ def booking_lab():
         role=fetch_role(session.get('email'))
         courses=fetch_courses()
         # print(role)
-        return render_template('bookinglab.html', role=role,courses=courses)
+        equipment_issued=fetch_equipment_issued(session.get('email'))
+        return render_template('bookinglab.html', role=role,courses=courses,equipment_issued=equipment_issued,)
     return redirect(url_for('login'))
 
 @app.route('/admintables/bookings', methods=['GET', 'POST'])
@@ -608,6 +634,21 @@ def fetch_name(email):
             name = cur.fetchone()
     return name[0]
 
+def fetch_grant_inventory(email):
+    
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT Lab_Name FROM lab WHERE Email_ID = %s", (email,))
+    lab_name = cur.fetchone()
+    cur.execute("SELECT * FROM grants WHERE Lab_Name = %s", (lab_name[0],))
+    grants = cur.fetchall()  # Fetch all rows
+    cur.execute("SELECT * FROM inventory WHERE Lab_Name = %s", (lab_name[0],))
+    inventory = cur.fetchall()  # Fetch all rows
+    return grants,inventory
+
+
+@app.errorhandler(404) 
+def invalid_route(e): 
+    return render_template('404.html')
 
 if __name__ == '__main__':       
     app.run(debug=True)
