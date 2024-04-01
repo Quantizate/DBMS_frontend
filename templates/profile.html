@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="./output.css" rel="stylesheet">
+    <link href="../static/styles/output.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
@@ -15,7 +15,7 @@
     <nav class="text-gray-600 body-font shadow-lg bg-white">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
             <div class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                <img src="images/logo.png" alt="logo" class="w-1/12 mr-4">
+                <img src="../static/images/logo.png" alt="logo" class="w-1/12 mr-4">
                 <h1 class="text-2xl font-bold">Lab Management</h1>
             </div>
 
@@ -78,25 +78,25 @@
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Equipment Type</th>
+                            Equipment ID</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Quantity</th>
-                        <th scope="col"
+                            Issue Date</th>
+                        <!-- <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Issued on</th>
-                        <th scope="col"
+                            Equipment ID</th> -->
+                        <!-- <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Return by</th>
+                            Return by</th> -->
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     {% for equipment in equipment_issued %}
                     <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[1] }}</td> -->
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -113,14 +113,14 @@
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab
                             Name</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
-                            From</th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
-                            To</th>
-                        <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
+                            Slot</th>
+                        <!-- <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -129,7 +129,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ booking[3] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -157,14 +157,11 @@
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab
                             Name</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
-                            From</th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
-                            To</th>
-                        <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
+                            Slot</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -173,7 +170,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ booking[3] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -187,6 +184,88 @@
                 <li>{{ course[0] }}</li>
                 {% endfor %}
             </ul>
+        </div>
+        {% elif role == "lab" %}
+        <!-- Lab Equipments -->
+        <!-- Need to add equipment id and stuff -->
+        <!-- Status also needs to resolved. Need to discuss what and all to add -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Inventory</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment Id</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Price</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Manufacturer</th>
+                        <!-- <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Vendor Phone Number</th> -->
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Quantity</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Note: Change this to available items!! using inventoryand querying through lab_name? -->
+                    {% for equipment in equipment_issued %}
+                    <tr>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lab Grants -->
+        <!-- Dynamically add -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Lab Grants</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Grant Id</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Donor Organization</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Amount</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Receiving Date</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Note: Change this to the actual grants!! -->
+                    {% for equipment in equipment_issued %}
+                    <tr>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         {% endif %}
 

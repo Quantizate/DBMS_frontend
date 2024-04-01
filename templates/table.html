@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Management</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> 
+    <link href="output.css" rel="stylesheet">
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            background-color: #f3f4f6;
+            /* Light grey background */
+        }
+
+        /* Style for the navbar */
+        .navbar {
+            background-color: #4a5568;
+            /* Dark grey navbar */
+        }
+
+        /* Style for the form */
+        .form-container {
+            background-color: #fff;
+            /* White background for the form */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="text-gray-600 body-font shadow-lg bg-white">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <div class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP8BjSsGYnOeIFaSgjqS04Uv76aH5Kx7aklQ&s" alt="logo" class="w-1/12 mr-4">
+                <h1 class="text-2xl font-bold">Lab Management</h1>
+            </div>
+
+            <ul class="md:ml-auto flex flex-wrap text-base float-right">
+                <li><a href="profile" class="mr-5 hover:text-gray-900">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="justify-center flex flex-col">
+        <div class="container mx-auto p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl">Select Table</h1>
+            </div>
+
+            <!-- Action Selection -->
+            <div class="flex justify-center flex-wrap">
+                <div class="">
+                    <button id="bookingsBtn"
+                         class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">  
+                         <a href="admintables/bookings">Book Lab</a>
+                    </button>
+                </div>
+                <div>
+                    <button id="inventoryBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/inventory">Inventory</a>
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/course">Course</a> </button>
+                </div>
+
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/student_enrolled">Student Enrolled</a> </button> 
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/accessed_tool"> Accessed Tools</a> </button> 
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/course_slot"> Course Slots </a> </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/grants"> Grants </a>
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/instructor"> Courses Taken By Instructors </a>
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/lab_grant"> Grants for Labs </a>
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/prof_department"> Department Professors </a>
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/professor"> Professors </a> 
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/project"> Projects </a> 
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/staff"> Staff </a> 
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/students"> Students </a> 
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/time_slot"> Time Slots </a> 
+                    </button>
+                </div>
+                <div>
+                    <button id="courseEnrollmentBtn"
+                        class="capitalize bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out my-3 mx-4">
+                        <a href="admintables/lab"> Labs </a> 
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    
+        <!-- needs to be updated -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const buttons = document.querySelectorAll('.select-table-btn');
+                const forms = document.querySelectorAll('.table-form');
+        
+                buttons.forEach((button) => {
+                    button.addEventListener('click', function () {
+                        const targetForm = document.getElementById(this.dataset.target);
+                        forms.forEach((form) => {
+                            form.classList.add('hidden');
+                        });
+                        targetForm.classList.remove('hidden');
+                    });
+                });
+            });
+        </script>
+
+
+    </div>
+</body>
+
+</html>

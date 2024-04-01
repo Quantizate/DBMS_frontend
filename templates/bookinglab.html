@@ -67,6 +67,11 @@
           class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Take
           Course </button>
       </div>
+      <div>
+        <button id="returnItemBtn"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Return
+          Equipment</button>
+      </div>
     </div>
 
     <!-- Lab Booking Form -->
@@ -136,18 +141,18 @@
         </select>
       </div>
       <div class="mb-4">
-        <label for="numberOfEquipment" class="block text-gray-700 font-bold mb-2">Number of Equipment:</label>
-        <input type="number" name="numberOfEquipment" id="numberOfEquipment"
+        <label for="ID" class="block text-gray-700 font-bold mb-2">ID</label>
+        <input type="text" name="ID" id="ID"
           class="form-input mt-1 block w-full border-gray-400">
       </div>
       <div class="mb-4">
         <label for="issueDate" class="block text-gray-700 font-bold mb-2">Issue Date:</label>
         <input type="date" name="issueDate" id="issueDate" class="form-input mt-1 block w-full border-gray-400">
       </div>
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <label for="returnDate" class="block text-gray-700 font-bold mb-2">Return Date:</label>
         <input type="date" name="returnDate" id="returnDate" class="form-input mt-1 block w-full border-gray-400">
-      </div>
+      </div> -->
       <div class="text-center">
         <button type="submit"
           class="border border-green-700 bg-green-700 hover:border-green-600 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Issue
@@ -172,6 +177,66 @@
         <button type="submit"
           class="border border-green-700 bg-green-700 hover:border-green-600 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Enroll
           Course</button>
+      </div>
+    </form>
+
+
+    <form id="returnItemForm" method="post" action="/submit"
+      class="form-container shadow-md rounded px-8 pt-6 pb-8 mt-8 hidden">
+      <div class="mb-4">
+  
+        <!-- work on this table -->
+        <!-- <div class="mb-8 mt-4">
+          <h2 class="text-lg font-bold mb-2">Selected Equipment</h2>
+          <table id="selectedEquipment" class="min-w-full divide-y divide-gray-200" style="display: none;">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Equipment Type</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Quantity</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Issued on</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Return by</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+               Need to add the sql query for the same to extract the data based on the selected ID -->
+              <!-- Also need to change the fields respectively -->
+              <!-- Initially the selected value is '', so based on that selectively run the SQL query, may run into errors -->
+              <!-- {% for equipment in equipment_issued %}
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div> --> 
+        <div class="mb-4">
+          <label for="ID" class="block text-gray-700 font-bold mb-2">ID</label>
+          <input type="text" name="ID" id="ID"
+            class="form-input mt-1 block w-full border-gray-400">
+        </div>
+        <script>
+          const returnEquip = document.getElementById('returnEquip');
+          const selectedEquipment = document.getElementById('selectedEquipment');
+
+          returnEquip.addEventListener('change', function () {
+            if (returnEquip.value !== '') {
+              selectedEquipment.style.display = 'block';
+            } else {
+              selectedEquipment.style.display = 'none';
+            }
+          });
+        </script>
+      </div>
+      <div class="text-center">
+        <button type="submit"
+          class="border border-green-700 bg-green-700 hover:border-green-600 hover:bg-green-600 text-white font-bold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Return</button>
       </div>
     </form>
 
@@ -297,10 +362,6 @@
           class="form-input mt-1 block w-full border-gray-400">
       </div>
       <div class="mb-4">
-        <label for="Quantity" class="block text-gray-700 font-bold mb-2">Quantity:</label>
-        <input type="number" name="Quantity" id="Quantity" class="form-input mt-1 block w-full border-gray-400">
-      </div>
-      <div class="mb-4">
         <label for="Price" class="block text-gray-700 font-bold mb-2">Price:</label>
         <input type="number" name="Price" id="Price" class="form-input mt-1 block w-full border-gray-400">
       </div>
@@ -320,9 +381,9 @@
           class="form-input mt-1 block w-full border-gray-400">
       </div>
       <div class="mb-4">
-        <label for="Status" class="block text-gray-700 font-bold mb-2">Status:</label>
-        <input type="radio" name="Status" id="Status" value="Available" class="ml-4 mr-2">Available
-        <input type="radio" name="Status" id="Status" value="Not Available" class="ml-4 mr-2"> Not Available
+        <label for="isAvailable" class="block text-gray-700 font-bold mb-2">Status:</label>
+        <input type="radio" name="isAvailable" id="isAvailable" value="Available" class="ml-4 mr-2">Available
+        <input type="radio" name="isAvailable" id="isAvailable" value="Not Available" class="ml-4 mr-2"> Not Available
       </div>
       <div class="mb-4">
         <label for="Lab_Name" class="block text-gray-700 font-bold mb-2">Lab Name:</label>
@@ -346,23 +407,34 @@
       const courseEnrollmentForm = document.getElementById('courseEnrollmentForm');
       const issueEquipmentBtn = document.getElementById('issueEquipmentBtn');
       const courseEnrollmentBtn = document.getElementById('courseEnrollmentBtn');
+      const returnItemBtn = document.getElementById('returnItemBtn');
 
       bookLabBtn.addEventListener('click', function () {
         labBookingForm.classList.remove('hidden');
         equipmentIssueForm.classList.add('hidden');
         courseEnrollmentForm.classList.add('hidden');
+        returnItemForm.classList.add('hidden');
       });
 
       issueEquipmentBtn.addEventListener('click', function () {
         equipmentIssueForm.classList.remove('hidden');
         labBookingForm.classList.add('hidden');
         courseEnrollmentForm.classList.add('hidden');
+        returnItemForm.classList.add('hidden');
       });
 
       courseEnrollmentBtn.addEventListener('click', function () {
         courseEnrollmentForm.classList.remove('hidden');
         labBookingForm.classList.add('hidden');
         equipmentIssueForm.classList.add('hidden');
+        returnItemForm.classList.add('hidden');
+      });
+
+      returnItemBtn.addEventListener('click', function () {
+        courseEnrollmentForm.classList.add('hidden');
+        equipmentIssueForm.classList.add('hidden');
+        labBookingForm.classList.add('hidden');
+        returnItemForm.classList.remove('hidden');
       });
     });
   </script>
@@ -400,4 +472,4 @@
 
 </body>
 
-</html>
+</html> 

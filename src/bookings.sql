@@ -8,8 +8,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     user_email VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     lab_name VARCHAR(255) NOT NULL,
-    time_from TIME NOT NULL,
-    time_to TIME NOT NULL ,
+    time_slot VARCHAR(255) NOT NULL,
     date DATE NOT NULL
 );
 
@@ -56,8 +55,9 @@ CREATE TABLE IF NOT EXISTS bookings (
 CREATE TABLE IF NOT EXISTS EquipmentIssued (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_email VARCHAR(255),
-    equipment_type VARCHAR(255),
-    number_of_equipment INT,
+    -- equipment_type VARCHAR(255),
+    -- number_of_equipment INT,
+    equipmentID bigint,
     issue_date DATE,
     return_date DATE
 );
@@ -68,36 +68,18 @@ CREATE TABLE IF NOT EXISTS EquipmentIssued (
 -- ------------------------------------------------------
 -- Server version	8.0.34
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+-- /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+-- /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+-- /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+--  SET NAMES utf8 ;
+-- /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+-- /*!40103 SET TIME_ZONE='+00:00' */;
+-- /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+-- /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+-- /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+-- /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `accessed_tool`
---
 
--- DROP TABLE IF EXISTS `accessed_tool`;
--- /*!40101 SET @saved_cs_client     = @@character_set_client */;
---  SET character_set_client = utf8mb4 ;
--- CREATE TABLE `accessed_tool` (
---   `ID` bigint NOT NULL,
---   `Roll_Number` int NOT NULL,
---   `Issued_Time` varchar(255) DEFAULT NULL,
---   `Return_Time` varchar(255) DEFAULT NULL,
---   `Quantity_Issued` int NOT NULL,
---   PRIMARY KEY (`ID`,`Roll_Number`),
---   KEY `Roll_Number` (`Roll_Number`),
---   CONSTRAINT `accessed_tool_fk_1` FOREIGN KEY (`Roll_Number`) REFERENCES `students` (`Roll_Number`) ON UPDATE CASCADE,
---   CONSTRAINT `accessed_tool_fk_2` FOREIGN KEY (`ID`) REFERENCES `inventory` (`ID`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `accessed_tool`
@@ -135,6 +117,58 @@ INSERT INTO `course` VALUES ('AQ264',1,'Paramedic'),('AY572',3,'Radio'),('CT740'
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `time_slot`
+--
+
+DROP TABLE IF EXISTS `time_slot`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `time_slot` (
+  `Time_ID` varchar(255) NOT NULL,
+  PRIMARY KEY (`Time_ID`),
+  UNIQUE KEY `Time_ID` (`Time_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `time_slot`
+--
+
+LOCK TABLES `time_slot` WRITE;
+/*!40000 ALTER TABLE `time_slot` DISABLE KEYS */;
+INSERT INTO `time_slot` VALUES ('A1'),('A2'),('A3'),('A4'),('A5'),('A6'),('B1'),('B2'),('B3'),('B4'),('B5'),('B6'),('C1'),('C2'),('C3'),('C4'),('C5'),('C6'),('D1'),('D2'),('D3'),('D4'),('D5'),('D6'),('E1'),('E2'),('E3'),('E4'),('E5'),('E6');
+/*!40000 ALTER TABLE `time_slot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- DROP TABLE IF EXISTS `lab`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `lab` (
+   `Lab_Name` ENUM('Anatomy Lab', 'Biochemistry Lab', 'Biology Lab', 'Botany Lab', 'Chemistry Lab', 'Computer Lab', 'Ecology Lab', 'Engineering Lab', 'Genetics Lab', 'Geology Lab', 'Microbiology Lab', 'Neuroscience Lab', 'Physics Lab', 'Psychology Lab', 'Zoology Lab') NOT NULL, 
+  `Room_No` int DEFAULT NULL,
+  `Block_No` int DEFAULT NULL,
+  `Amount_Allocated` float DEFAULT '0',
+  `Working_Hours` int DEFAULT NULL,
+  `Capacity` int DEFAULT NULL,
+  `Email_ID` VARCHAR(255) CHECK (Email_ID REGEXP'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
+  `Contact` bigint DEFAULT NULL,
+  PRIMARY KEY (`Lab_Name`),
+  UNIQUE KEY `Lab_Name` (`Lab_Name`),
+  CONSTRAINT `lab_chk_2` CHECK (((`Contact` >= 1000000000) and (`Contact` < 10000000000)))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `lab` WRITE;
+/*!40000 ALTER TABLE `lab` DISABLE KEYS */;
+INSERT INTO `lab` VALUES ('Anatomy Lab',484,6,4034.13,18,49,'anatomylab@example.com',9467853210),('Biochemistry Lab',101,9,3684.54,8,70,'biochemistrylab@example.com',8129467035),('Biology Lab',313,8,1396.74,13,66,'biologylab@example.com',7341582096),('Botany Lab',493,8,9720.5,18,75,'botanylab@example.com',2196754038),('Chemistry Lab',567,10,8154.55,22,60,'chemistrylab@example.com',5309178642),('Computer Lab',465,4,5388.87,17,25,'computerlab@example.com',8023946715),('Ecology Lab',887,10,1399.11,22,19,'ecologylab@example.com',3698120475),('Engineering Lab',678,9,4050.05,8,85,'engineeringlab@example.com',6407912835),('Genetics Lab',375,10,8596.84,12,40,'geneticslab@example.com',5187249036),('Geology Lab',200,6,6725.97,23,62,'geologylab@example.com',9046812573),('Microbiology Lab',482,6,4602.45,10,17,'microbiologylab@example.com',2761948350),('Neuroscience Lab',909,9,6753.61,23,92,'neurosciencelab@example.com',8105273469),('Physics Lab',645,2,2134.6,10,82,'physicslab@example.com',6291480753),('Psychology Lab',508,4,8302.33,18,35,'psychologylab@example.com',4125968370),('Zoology Lab',493,8,2394.3,15,74,'zoologylab@example.com',9580276134);
+/*!40000 ALTER TABLE `lab` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
 --
 -- Table structure for table `course_slot`
 --
@@ -151,6 +185,8 @@ CREATE TABLE `course_slot` (
   CONSTRAINT `course_slot_fk_2` FOREIGN KEY (`Lab_Name`) REFERENCES `lab` (`Lab_Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
 
 --
 -- Dumping data for table `course_slot`
@@ -219,6 +255,31 @@ INSERT INTO `grants` VALUES (1,'Anatomy Lab','Tyler Lopez','Green, Johnson and P
 UNLOCK TABLES;
 
 --
+-- Table structure for table `professor`
+--
+
+DROP TABLE IF EXISTS `professor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE `professor` (
+  `Employee_ID` bigint NOT NULL,
+  `First_Name` varchar(255) NOT NULL,
+  `Middle_Name` varchar(255) DEFAULT NULL,
+  `Last_Name` varchar(255) DEFAULT NULL,
+  `Grant_Aid` float DEFAULT '0',
+  `Office_Number` varchar(255) DEFAULT NULL,
+  `Email_ID` VARCHAR(255) CHECK (Email_ID REGEXP'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
+  `Contact` bigint DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Employee_ID`),
+  UNIQUE KEY `Employee_ID` (`Employee_ID`),
+  CONSTRAINT `professor_chk_2` CHECK (((`Contact` >= 1000000000) and (`Contact` < 10000000000)))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+create index Prof_name on professor(First_Name);
+
+--
 -- Table structure for table `instructor`
 --
 
@@ -241,12 +302,6 @@ CREATE TABLE `instructor` (
 -- Dumping data for table `instructor`
 --
 
-LOCK TABLES `instructor` WRITE;
-/*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES ('AQ264',1349232821),('AY572',1349232821),('CT740',1349232821),('EB565',1435102099),('FG378',1435102099),('FN914',1435102099),('GB578',1435102099),('GE392',1939710942),('ID617',1939710942),('KM959',1939710942),('MQ319',2369578717),('OR177',2480308920),('PJ264',2480308920),('UJ495',2480308920),('UY580',2480308920),('VH458',2480308920),('WV691',2579751326),('WV937',2579751326),('YW710',2579751326),('ZJ857',2779600805),('ZJ857',3027615945);
-/*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `inventory`
 --
@@ -258,10 +313,10 @@ CREATE TABLE `inventory` (
   `ID` bigint NOT NULL,
   `Equipment_Name` varchar(255) NOT NULL,
   `Price` float DEFAULT NULL,
-  `Vendor_Address` json DEFAULT NULL,
+  `Vendor_Address` varchar(255) DEFAULT NULL,
   `Vendor_Phone_Number` varchar(255) DEFAULT NULL,
   `Manufacturer_Name` varchar(255) DEFAULT NULL,
-  `Status` varchar(255) DEFAULT NULL,
+  `isAvailable` BOOLEAN DEFAULT 1,
    `Lab_Name` ENUM('Anatomy Lab', 'Biochemistry Lab', 'Biology Lab', 'Botany Lab', 'Chemistry Lab', 'Computer Lab', 'Ecology Lab', 'Engineering Lab', 'Genetics Lab', 'Geology Lab', 'Microbiology Lab', 'Neuroscience Lab', 'Physics Lab', 'Psychology Lab', 'Zoology Lab') NOT NULL, 
   `Quantity` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
@@ -270,31 +325,6 @@ CREATE TABLE `inventory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 create index Eqp_name on inventory(Equipment_Name);
-
-
-DROP TABLE IF EXISTS `lab`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-SET character_set_client = utf8mb4 ;
-CREATE TABLE `lab` (
-   `Lab_Name` ENUM('Anatomy Lab', 'Biochemistry Lab', 'Biology Lab', 'Botany Lab', 'Chemistry Lab', 'Computer Lab', 'Ecology Lab', 'Engineering Lab', 'Genetics Lab', 'Geology Lab', 'Microbiology Lab', 'Neuroscience Lab', 'Physics Lab', 'Psychology Lab', 'Zoology Lab') NOT NULL, 
-  `Room_No` int DEFAULT NULL,
-  `Block_No` int DEFAULT NULL,
-  `Amount_Allocated` float DEFAULT '0',
-  `Working_Hours` int DEFAULT NULL,
-  `Capacity` int DEFAULT NULL,
-  `Email_ID` VARCHAR(255) CHECK (Email_ID REGEXP'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
-  `Contact` bigint DEFAULT NULL,
-  PRIMARY KEY (`Lab_Name`),
-  UNIQUE KEY `Lab_Name` (`Lab_Name`),
-  CONSTRAINT `lab_chk_2` CHECK (((`Contact` >= 1000000000) and (`Contact` < 10000000000)))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-LOCK TABLES `lab` WRITE;
-/*!40000 ALTER TABLE `lab` DISABLE KEYS */;
-INSERT INTO `lab` VALUES ('Anatomy Lab',484,6,4034.13,18,49,'anatomylab@example.com',9467853210),('Biochemistry Lab',101,9,3684.54,8,70,'biochemistrylab@example.com',8129467035),('Biology Lab',313,8,1396.74,13,66,'biologylab@example.com',7341582096),('Botany Lab',493,8,9720.5,18,75,'botanylab@example.com',2196754038),('Chemistry Lab',567,10,8154.55,22,60,'chemistrylab@example.com',5309178642),('Computer Lab',465,4,5388.87,17,25,'computerlab@example.com',8023946715),('Ecology Lab',887,10,1399.11,22,19,'ecologylab@example.com',3698120475),('Engineering Lab',678,9,4050.05,8,85,'engineeringlab@example.com',6407912835),('Genetics Lab',375,10,8596.84,12,40,'geneticslab@example.com',5187249036),('Geology Lab',200,6,6725.97,23,62,'geologylab@example.com',9046812573),('Microbiology Lab',482,6,4602.45,10,17,'microbiologylab@example.com',2761948350),('Neuroscience Lab',909,9,6753.61,23,92,'neurosciencelab@example.com',8105273469),('Physics Lab',645,2,2134.6,10,82,'physicslab@example.com',6291480753),('Psychology Lab',508,4,8302.33,18,35,'psychologylab@example.com',4125968370),('Zoology Lab',493,8,2394.3,15,74,'zoologylab@example.com',9580276134);
-/*!40000 ALTER TABLE `lab` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 --
@@ -373,53 +403,12 @@ CREATE TABLE `prof_department` (
 
 
 
---
--- Table structure for table `professor`
---
-
-DROP TABLE IF EXISTS `professor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-SET character_set_client = utf8mb4 ;
-CREATE TABLE `professor` (
-  `Employee_ID` bigint NOT NULL,
-  `First_Name` varchar(255) NOT NULL,
-  `Middle_Name` varchar(255) DEFAULT NULL,
-  `Last_Name` varchar(255) DEFAULT NULL,
-  `Grant_Aid` float DEFAULT '0',
-  `Office_Number` varchar(255) DEFAULT NULL,
-  `Email_ID` VARCHAR(255) CHECK (Email_ID REGEXP'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
-  `Contact` bigint DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Employee_ID`),
-  UNIQUE KEY `Employee_ID` (`Employee_ID`),
-  CONSTRAINT `professor_chk_2` CHECK (((`Contact` >= 1000000000) and (`Contact` < 10000000000)))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-create index Prof_name on professor(First_Name);
 
 
 
 
---
--- Table structure for table `proj_taken`
---
 
-DROP TABLE IF EXISTS `proj_taken`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `proj_taken` (
-  `Employee_ID` bigint NOT NULL,
-  `Roll_Number` int NOT NULL,
-  `Project_ID` varchar(255) NOT NULL,
-  PRIMARY KEY (`Employee_ID`,`Roll_Number`,`Project_ID`),
-  KEY `Roll_Number` (`Roll_Number`),
-  KEY `Project_ID` (`Project_ID`),
-  CONSTRAINT `proj_taken_fk_1` FOREIGN KEY (`Employee_ID`) REFERENCES `professor` (`Employee_ID`)  ON UPDATE CASCADE,
-  CONSTRAINT `proj_taken_fk_2` FOREIGN KEY (`Roll_Number`) REFERENCES `students` (`Roll_Number`)  ON UPDATE CASCADE,
-  CONSTRAINT `proj_taken_fk_3` FOREIGN KEY (`Project_ID`) REFERENCES `project` (`Project_ID`)  ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 
 --
@@ -468,35 +457,6 @@ CREATE TABLE `staff` (
 
 create index staff_name_idx on staff(First_Name);
 
-
-
---
--- Table structure for table `student_enrolled`
---
-
-DROP TABLE IF EXISTS `student_enrolled`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `student_enrolled` (
-  `Course_ID` varchar(255) NOT NULL,
-  `Roll_Number` int NOT NULL,
-  PRIMARY KEY (`Course_ID`,`Roll_Number`),
-  KEY `Roll_Number` (`Roll_Number`),
-  CONSTRAINT `student_enrolled_fk_1` FOREIGN KEY (`Course_ID`) REFERENCES `course` (`Course_ID`),
-  CONSTRAINT `student_enrolled_fk_2` FOREIGN KEY (`Roll_Number`) REFERENCES `students` (`Roll_Number`)  ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `student_enrolled`
---
-
-LOCK TABLES `student_enrolled` WRITE;
-/*!40000 ALTER TABLE `student_enrolled` DISABLE KEYS */;
-INSERT INTO `student_enrolled` VALUES ('AQ264',11637578),('AQ264',12278656),('AY572',12278656),('AY572',14790536),('CT740',14790536),('CT740',15216734),('EB565',15216734),('EB565',15606155),('FG378',15606155),('EB565',15823784),('FG378',15823784),('FN914',15823784),('FG378',16512225),('FN914',16512225),('GB578',16512225),('GB578',16950074),('GE392',16950074),('GB578',17901162),('GE392',17901162),('ID617',17901162),('GE392',18222390),('ID617',18222390),('KM959',18222390),('ID617',18611564),('KM959',18611564),('MQ319',18611564),('KM959',21258441),('MQ319',21258441),('OR177',21258441),('MQ319',21321656),('OR177',21321656),('PJ264',21321656),('OR177',21334196),('PJ264',21334196),('UJ495',21334196),('PJ264',23465720),('UJ495',23465720),('UY580',23465720),('UJ495',24002624),('UY580',24002624),('VH458',24002624),('UY580',24728224),('VH458',24728224),('WV691',24728224),('VH458',26088398),('WV691',26088398),('WV937',26088398),('WV691',26160676),('WV937',26160676),('YW710',26160676),('WV937',26194497),('YW710',26194497),('ZJ857',26194497),('AQ264',26690114),('YW710',26690114),('ZJ857',26690114),('AQ264',27362381),('AY572',27362381),('ZJ857',27362381),('AQ264',28505383),('AY572',28505383),('CT740',28505383),('AY572',29810599),('CT740',29810599),('EB565',29810599),('CT740',29952133),('EB565',29952133),('FG378',29952133),('EB565',31650436),('FG378',31650436),('FN914',31650436),('FG378',32018957),('FN914',32018957),('GB578',32018957),('FN914',33237899),('GB578',33237899),('GE392',33237899),('GB578',34072887),('GE392',34072887),('ID617',34072887),('GE392',34098469),('ID617',34098469),('KM959',34098469),('ID617',34979591),('KM959',34979591),('MQ319',34979591),('KM959',35810390),('MQ319',35810390),('OR177',35810390),('MQ319',38126066),('OR177',38126066),('PJ264',38126066),('OR177',38475227),('PJ264',38475227),('UJ495',38475227),('PJ264',39953828),('UJ495',39953828),('UY580',39953828),('UJ495',41405538),('UY580',41405538),('VH458',41405538),('UY580',41639437),('VH458',41639437),('WV691',41639437),('VH458',42702777),('WV691',42702777),('WV937',42702777),('WV691',43783777),('WV937',43783777),('YW710',43783777),('WV937',43987798),('YW710',43987798),('ZJ857',43987798),('AQ264',44059805),('YW710',44059805),('ZJ857',44059805),('AQ264',44228400),('AY572',44228400),('ZJ857',44228400),('AQ264',46362674),('AY572',46362674),('CT740',46362674),('AY572',46509260),('CT740',46509260),('EB565',46509260),('CT740',46834119),('EB565',46834119),('FG378',46834119),('EB565',48245943),('FG378',48245943),('FN914',48245943),('FG378',48882413),('FN914',48882413),('GB578',48882413),('FN914',50751945),('GB578',50751945),('GE392',50751945),('GB578',51179103),('GE392',51179103),('ID617',51179103),('GE392',51710792),('ID617',51710792),('KM959',51710792),('ID617',52047940),('KM959',52047940),('MQ319',52047940),('KM959',53733286),('MQ319',53733286),('OR177',53733286),('MQ319',54105370),('OR177',54105370),('PJ264',54105370),('OR177',57766449),('PJ264',57766449),('UJ495',57766449),('PJ264',58370044),('UJ495',58370044),('UY580',58370044),('UJ495',58808431),('UY580',58808431),('VH458',58808431),('UY580',59054416),('VH458',59054416),('WV691',59054416),('VH458',59731192),('WV691',59731192),('WV937',59731192),('WV691',59992812),('WV937',59992812),('YW710',59992812),('WV937',63945001),('YW710',63945001),('ZJ857',63945001),('AQ264',70681440),('YW710',70681440),('ZJ857',70681440),('AQ264',72619822),('AY572',72619822),('ZJ857',72619822),('AQ264',72937805),('AY572',72937805),('CT740',72937805),('AY572',73781167),('CT740',73781167),('EB565',73781167),('CT740',73954873),('EB565',73954873),('FG378',73954873),('EB565',75648081),('FG378',75648081),('FN914',75648081),('FG378',75851781),('FN914',75851781),('GB578',75851781),('FN914',77942770),('GB578',77942770),('GE392',77942770),('GB578',78656012),('GE392',78656012),('ID617',78656012),('GE392',78999542),('ID617',78999542),('KM959',78999542),('ID617',79348439),('KM959',79348439),('MQ319',79348439),('KM959',79770549),('MQ319',79770549),('OR177',79770549),('MQ319',80594861),('OR177',80594861),('PJ264',80594861),('OR177',83469044),('PJ264',83469044),('UJ495',83469044),('PJ264',83620032),('UJ495',83620032),('UY580',83620032),('UJ495',84747343),('UY580',84747343),('VH458',84747343),('UY580',85192355),('VH458',85192355),('WV691',85192355),('VH458',87526026),('WV691',87526026),('WV937',87526026),('WV691',87529682),('WV937',87529682),('YW710',87529682),('WV937',89597491),('YW710',89597491),('ZJ857',89597491),('AQ264',90585089),('YW710',90585089),('ZJ857',90585089),('AQ264',91860735),('AY572',91860735),('ZJ857',91860735),('AQ264',92309689),('AY572',92309689),('CT740',92309689),('AY572',92656513),('CT740',92656513),('EB565',92656513),('CT740',93049851),('EB565',93049851),('FG378',93049851),('EB565',93677515),('FG378',93677515),('FN914',93677515),('FG378',95804242),('FN914',95804242),('GB578',95804242),('FN914',96226921),('GB578',96226921),('GE392',96226921),('GB578',96290942),('GE392',96290942),('ID617',96290942),('GE392',96640002),('ID617',96640002),('KM959',96640002),('ID617',97274756),('KM959',97274756),('MQ319',97274756),('KM959',97369711),('MQ319',97369711),('OR177',97369711),('MQ319',97704784),('OR177',97704784),('PJ264',97704784),('OR177',99400519),('PJ264',99400519),('UJ495',99400519),('PJ264',99468293),('UJ495',99468293),('UY580',99468293),('UJ495',99823131),('UY580',99823131),('VH458',99823131),('UY580',99849202),('VH458',99849202);
-/*!40000 ALTER TABLE `student_enrolled` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `students`
 --
@@ -526,36 +486,71 @@ CREATE TABLE `students` (
 
 create index student_name on students(Roll_Number);
 
-
-
-
-
-
-
-
 --
--- Table structure for table `time_slot`
+-- Table structure for table `student_enrolled`
 --
 
-DROP TABLE IF EXISTS `time_slot`;
+DROP TABLE IF EXISTS `student_enrolled`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-SET character_set_client = utf8mb4 ;
-CREATE TABLE `time_slot` (
-  `Time_ID` varchar(255) NOT NULL,
-  PRIMARY KEY (`Time_ID`),
-  UNIQUE KEY `Time_ID` (`Time_ID`)
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `student_enrolled` (
+  `Course_ID` varchar(255) NOT NULL,
+  `Roll_Number` int NOT NULL,
+  PRIMARY KEY (`Course_ID`,`Roll_Number`),
+  KEY `Roll_Number` (`Roll_Number`),
+  CONSTRAINT `student_enrolled_fk_1` FOREIGN KEY (`Course_ID`) REFERENCES `course` (`Course_ID`),
+  CONSTRAINT `student_enrolled_fk_2` FOREIGN KEY (`Roll_Number`) REFERENCES `students` (`Roll_Number`)  ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `proj_taken`
+--
+
+DROP TABLE IF EXISTS `proj_taken`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `proj_taken` (
+  `Employee_ID` bigint NOT NULL,
+  `Roll_Number` int NOT NULL,
+  `Project_ID` varchar(255) NOT NULL,
+  PRIMARY KEY (`Employee_ID`,`Roll_Number`,`Project_ID`),
+  KEY `Roll_Number` (`Roll_Number`),
+  KEY `Project_ID` (`Project_ID`),
+  CONSTRAINT `proj_taken_fk_1` FOREIGN KEY (`Employee_ID`) REFERENCES `professor` (`Employee_ID`)  ON UPDATE CASCADE,
+  CONSTRAINT `proj_taken_fk_2` FOREIGN KEY (`Roll_Number`) REFERENCES `students` (`Roll_Number`)  ON UPDATE CASCADE,
+  CONSTRAINT `proj_taken_fk_3` FOREIGN KEY (`Project_ID`) REFERENCES `project` (`Project_ID`)  ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `time_slot`
+-- Table structure for table `accessed_tool`
 --
 
-LOCK TABLES `time_slot` WRITE;
-/*!40000 ALTER TABLE `time_slot` DISABLE KEYS */;
-INSERT INTO `time_slot` VALUES ('A1'),('A2'),('A3'),('A4'),('A5'),('A6'),('B1'),('B2'),('B3'),('B4'),('B5'),('B6'),('C1'),('C2'),('C3'),('C4'),('C5'),('C6'),('D1'),('D2'),('D3'),('D4'),('D5'),('D6'),('E1'),('E2'),('E3'),('E4'),('E5'),('E6');
-/*!40000 ALTER TABLE `time_slot` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `accessed_tool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `accessed_tool` (
+  `ID` bigint NOT NULL,
+  `Roll_Number` int NOT NULL,
+  `Issued_Date` DATE,
+  -- `Return_Time` varchar(255) DEFAULT NULL,
+  -- `Quantity_Issued` int NOT NULL,
+  PRIMARY KEY (`ID`,`Roll_Number`),
+  KEY `Roll_Number` (`Roll_Number`),
+  CONSTRAINT `accessed_tool_fk_1` FOREIGN KEY (`Roll_Number`) REFERENCES `students` (`Roll_Number`) ON UPDATE CASCADE,
+  CONSTRAINT `accessed_tool_fk_2` FOREIGN KEY (`ID`) REFERENCES `inventory` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
+
+
+
+
+
 
 
 CREATE TABLE CSE as (select * from students where Dept_Name = 'CSE');

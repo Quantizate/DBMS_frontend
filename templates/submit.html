@@ -8,8 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: transparent; /* Remove the gray background */
-            overflow-y: auto; /* Enable vertical scrolling */
+            background-color: transparent;
+            /* Remove the gray background */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
         }
     </style>
 </head>
@@ -19,51 +21,63 @@
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h1 class="text-3xl font-semibold text-center mb-4">Submission Successful!</h1>
             <p class="text-lg text-gray-700 text-center">Your Form has been submitted Successfully!</p>
-            
+
             <!-- Display lab bookings -->
             <div class="mt-6 overflow-x-auto">
                 <h2 class="text-xl font-semibold mb-2">Your Lab Bookings:</h2>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab Name</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time From</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time To</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Lab Name</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Time Slot</th>
+                            <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time To</th> -->
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Date</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         {% for booking in lab_bookings %}
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">{{ booking[3] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
+                            <!-- <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td> -->
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- Display equipment issued -->
             <div class="mt-6 overflow-x-auto">
                 <h2 class="text-xl font-semibold mb-2">Equipment Issued by You:</h2>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Equipment Type</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issued on</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Return by</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Equipment ID</th>
+                            <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th> -->
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Issued on</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Return by</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         {% for equipment in equipment_issued %}
                         <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
+                            <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -71,7 +85,7 @@
             </div>
 
             <div class="mt-6 flex justify-center">
-                <a href="/" class="text-blue-600 hover:text-blue-700">Back to Home</a>
+                <a href="/bookinglab" class="text-blue-600 hover:text-blue-700">Back to Home</a>
             </div>
         </div>
     </div>
