@@ -81,6 +81,12 @@
                             Equipment ID</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Lab Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Issue Date</th>
                         <!-- <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -94,6 +100,9 @@
                     {% for equipment in equipment_issued %}
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment_details_list[loop.index0][1]|capitalize }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment_details_list[loop.index0][7] }}</td>
                         <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[1] }}</td> -->
                         <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
                         <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
@@ -203,10 +212,10 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Price</th>
-                            <th scope="col"
+                        <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Vendor Address</th>
-                        
+
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Vendor Phone Number</th>
@@ -250,9 +259,9 @@
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Grant Id</th>
-                            <th scope="col"
+                        <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Donor</th>    
+                            Donor</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Donor Organization</th>
