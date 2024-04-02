@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect,session, url_for
+from flask import Flask, render_template, request, redirect,session, url_for, jsonify
 # from Flask-MySQLdb import MySQL
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -18,7 +18,7 @@ app.secret_key = 'abcd2123445'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '@B203kairavi'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'lab_bookings'
 
 mysql = MySQL(app)
@@ -157,7 +157,7 @@ def submit():
                 mysql.connection.commit()
                 cur.close()
             else:
-                equipmentID = details['ID']
+                equipmentID = details['equipment_id']
                 cur = mysql.connection.cursor()
                 cur.execute("select * from students where Email_ID = %s", (email,))
                 user = cur.fetchone()
@@ -178,19 +178,23 @@ def submit():
             equipment_issued=[]
         courses=fetch_courses()
         role=fetch_role(email)
-        return render_template('submit.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses,role=role)
+        equipment_details_list = fetch_equip_details_list(equipment_issued)
+        return render_template('submit.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses,role=role, equipment_details_list=equipment_details_list)
 
 @app.route('/profile')
 def profile():
     email=session.get('email')
     lab_bookings=fetch_lab_bookings(email)
     equipment_issued = fetch_equipment_issued(email)
+    if(type(equipment_issued)==type(None)):
+        equipment_issued=[]
     role=fetch_role(email)
     if(role!='lab'):
         name=fetch_name(email)
         if(role=='student'):
             courses=fetch_student_courses(email)
-            return render_template('profile.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses,name=name,role = role)
+            equipment_details_list = fetch_equip_details_list(equipment_issued)
+            return render_template('profile.html', equipment_issued=equipment_issued, lab_bookings=lab_bookings,courses=courses,name=name,role = role, equipment_details_list=equipment_details_list)
         elif(role=='professor'):
             courses=fetch_prof_course(email)
             return render_template('profile.html', lab_bookings=lab_bookings,courses=courses,name=name, equipment_issued=[] ,role = role)
@@ -281,7 +285,7 @@ def register():
         cur.close()
 
         # Redirect to login page after successful registration
-        return redirect('/')
+        return redirect('/login')
     
     if request.method == 'GET':
         return render_template('register.html')
@@ -535,6 +539,59 @@ def get_columns(table_name):
     columns = get_column_names(table_name)
     return {'columns': columns}
 
+@app.route('/api/get_equipment', methods=['POST'])
+def get_equipment():
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+    email = session.get('email')
+
+    data = request.get_json()  # Get data sent in the request
+    selectedValue = int(data['selectedValue'])
+    equipments = fetch_equipment_issued(email)
+
+    for equipment in equipments:
+        if equipment[0] == selectedValue:
+            equip_det = fetch_equip_details(selectedValue)
+            return jsonify({"equipment": equipment, "details": equip_det}), 200
+    
+    return jsonify({"error": "Bad Request"}), 400
+
+@app.route('/api/check_lab', methods=['POST'])
+def check_lab():
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+    
+    data = request.get_json()  
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM bookings WHERE lab_name = %s AND date = %s AND time_slot = %s", (data['lab'], data['date'], data['time_slot']))
+    existing_booking = cur.fetchone()
+    if existing_booking:
+        return jsonify({"Availability": "False"}), 400
+    return jsonify({"Availability": "True"}), 400
+
+@app.route('/api/check_equipment', methods=['POST'])
+def check_equipment():
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
+    
+    email = session.get('email')
+    data = request.get_json()  
+    cur = mysql.connection.cursor()
+    cur.execute("select * from students where Email_ID = %s", (email,))
+    user = cur.fetchone()
+    if user!=None:
+        roll_no=user[0]
+    else:
+        redirect(url_for('404'))
+    cur.execute("SELECT ID,isAvailable FROM inventory WHERE ID = %s", (data['id'],))
+    existing_id = cur.fetchone()
+    if not existing_id:
+        return jsonify({"Availability": "False", "Message": "No such equipment exists."}), 400
+    elif (existing_id[1] == 0):
+        return jsonify({"Availability": "False", "Message": "The selected equipment is unavailable at the moment."}), 400
+    return jsonify({"Availability": "True"}), 400
+
+
 def fetch_all():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM bookings")
@@ -553,6 +610,22 @@ def fetch_all():
     course_slot= cur.fetchall()  # Fetch all rows 
     
     return lab_bookings, equipment_issued,courses, inventory, student_enrolled, accessed_tool, course_slot
+
+def fetch_equip_details_list(item_list):
+    cur = mysql.connection.cursor()
+    details_list = []
+    for item in item_list:
+        cur.execute("SELECT * FROM inventory WHERE ID = %s", (item[0],))
+        details = cur.fetchone()
+        details_list.append(details)
+    return details_list
+
+def fetch_equip_details(id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM inventory WHERE ID = %s", (id,))
+    equipment = cur.fetchone()  
+    return equipment
+
 def fetch_lab_bookings(email):
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM bookings WHERE user_email = %s", (email,))
