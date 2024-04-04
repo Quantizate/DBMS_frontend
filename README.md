@@ -143,9 +143,9 @@ After: <img src="images\admin_operations\delete\student_table\after.png" alt="du
 
     In Staff table:
     
-Before: <img src="images\admin_operations\delete\staff\before.png" alt="dummy_data_2" style="border: 2px solid black;">
+Before: <img src="images\admin_operations\delete\Staff\before.png" alt="dummy_data_2" style="border: 2px solid black;">
 
-After: <img src="images\admin_operations\delete\staff\after.png" alt="dummy_data_2" style="border: 2px solid black;">
+After: <img src="images\admin_operations\delete\Staff\after.png" alt="dummy_data_2" style="border: 2px solid black;">
 
 
 ### 4. WHERE
