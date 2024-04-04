@@ -18,19 +18,20 @@ app.secret_key = 'abcd2123445'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '@B203kairavi'
+app.config['MYSQL_PASSWORD'] = 'Kaushal@123'
 app.config['MYSQL_DB'] = 'lab_bookings'
 
 mysql = MySQL(app)
 
-session_email=None
 @app.route('/')
 def index():
+    session.clear()
     return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
-        
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
     if request.method == 'POST':
         details = request.form
         email = session.get('email')  # Retrieve email from session
@@ -183,6 +184,8 @@ def submit():
 
 @app.route('/profile')
 def profile():
+    if 'loggedin' not in session:
+        return redirect(url_for('login'))
     email=session.get('email')
     lab_bookings=fetch_lab_bookings(email)
     equipment_issued = fetch_equipment_issued(email)
@@ -210,7 +213,10 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        if (email=="admin@gmail.com"):
+        if (email=="admin@gmail.com") and (password=="admin"):
+            session['loggedin'] = True
+            session['email'] = email
+            session['password']=password
             return redirect(url_for('table'))
         # session_email=email
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -252,7 +258,7 @@ def login():
 
 
 @app.route('/labpage')
-def labpage():
+def labpage(): 
     if 'loggedin' in session:
         role=fetch_role(session.get('email'))
         return render_template('labpage.html', role=role)
@@ -292,7 +298,7 @@ def register():
         return render_template('register.html')
 
 @app.route('/bookinglab')
-def booking_lab():
+def booking_lab():  
     if 'loggedin' in session:
         role=fetch_role(session.get('email'))
         courses=fetch_courses()
@@ -303,6 +309,9 @@ def booking_lab():
 
 @app.route('/admintables/bookings', methods=['GET', 'POST'])
 def bookings():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     bookings,equipment_issued,courses, inventory, student_enrolled, accessed_tool, course_slot =fetch_all()
     columns=get_column_names('bookings')
     # print(columns)
@@ -310,6 +319,11 @@ def bookings():
 
 @app.route('/admintables/inventory', methods=['GET', 'POST'])
 def inventory():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
+    if 'loggedin' not in session or session.get('email')!='admin@gmail.com' or session.get('password')!='admin':
+        return redirect(url_for('login'))
     bookings,equipment_issued,courses, inventory , student_enrolled, accessed_tool, course_slot =fetch_all()
     columns=get_column_names('inventory')
     # print(columns)
@@ -317,30 +331,45 @@ def inventory():
 
 @app.route('/admintables/course', methods=['GET', 'POST'])
 def course():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     bookings,equipment_issued,courses, inventory , student_enrolled, accessed_tool, course_slot =fetch_all()
     columns=get_column_names('course')
     return render_template('/admintables/course.html',bookings=bookings,equipment_issued=equipment_issued, courses=courses, inventory=inventory, columns=columns)
 
 @app.route('/admintables/student_enrolled', methods=['GET', 'POST'])
 def student_enrolled():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     bookings,equipment_issued,courses, inventory,student_enrolled, accessed_tool, course_slot =fetch_all()
     columns=get_column_names('student_enrolled')
     return render_template('/admintables/student_enrolled.html',bookings=bookings,equipment_issued=equipment_issued, courses=courses, inventory=inventory,student_enrolled= student_enrolled ,columns=columns)
 
 @app.route('/admintables/accessed_tool', methods=['GET', 'POST'])
 def accessed_tool():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     bookings,equipment_issued,courses, inventory , student_enrolled, accessed_tool , course_slot =fetch_all()
     columns=get_column_names('accessed_tool')
     return render_template('/admintables/accessed_tool.html',bookings=bookings,equipment_issued=equipment_issued, courses=courses, inventory=inventory, student_enrolled=student_enrolled, accessed_tool=accessed_tool, columns=columns)
 
 @app.route('/admintables/course_slot', methods=['GET', 'POST'])
 def course_slot():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     bookings,equipment_issued,courses, inventory , student_enrolled, accessed_tool, course_slot =fetch_all()
     columns=get_column_names('course_slot')
     return render_template('/admintables/course_slot.html',bookings=bookings,equipment_issued=equipment_issued, courses=courses, inventory=inventory, student_enrolled=student_enrolled, accessed_tool=accessed_tool, columns=columns, course_slot=course_slot)
 
 @app.route('/admintables/grants', methods=['GET', 'POST'])
 def grants():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     grants=fetch_all_grants()
     columns=get_column_names('grants')
     return render_template('/admintables/grants.html', grants=grants, columns=columns)
@@ -360,6 +389,9 @@ def fetch_all_instructor():
 
 @app.route('/admintables/instructor', methods=['GET', 'POST'])
 def instructor():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     instructor=fetch_all_instructor()
     columns=get_column_names('instructor')
     return render_template('/admintables/instructor.html', instructor=instructor, columns=columns)
@@ -372,11 +404,17 @@ def fetch_all_lab_grant():
 
 @app.route('/admintables/lab_grant', methods=['GET', 'POST'])
 def lab_grants():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     lab_grant=fetch_all_lab_grant()
     columns=get_column_names('lab_grant')
     return render_template('/admintables/lab_grant.html', lab_grant=lab_grant, columns=columns)
 
 def get_all_prof_department():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM prof_department")
     prof_department = cur.fetchall()  # Fetch all rows
@@ -384,6 +422,9 @@ def get_all_prof_department():
 
 @app.route('/admintables/prof_department', methods=['GET', 'POST'])
 def prof_department():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     prof_department=get_all_prof_department()
     columns=get_column_names('prof_department')
     return render_template('/admintables/prof_department.html', prof_department=prof_department, columns=columns)
@@ -396,6 +437,9 @@ def get_all_professor():
 
 @app.route('/admintables/professor', methods=['GET', 'POST'])
 def professor():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     professor=get_all_professor()
     columns=get_column_names('professor')
     return render_template('/admintables/professor.html', professor=professor, columns=columns)
@@ -408,6 +452,9 @@ def get_all_project():
 
 @app.route('/admintables/project', methods=['GET', 'POST'])
 def project():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     project=get_all_project()
     columns=get_column_names('project')
     return render_template('/admintables/project.html', project=project, columns=columns)
@@ -420,6 +467,9 @@ def get_all_staff():
 
 @app.route('/admintables/staff', methods=['GET', 'POST'])
 def staff():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     staff=get_all_staff()
     columns=get_column_names('staff')
     return render_template('/admintables/staff.html', staff=staff, columns=columns)
@@ -432,6 +482,9 @@ def get_all_students():
 
 @app.route('/admintables/students', methods=['GET', 'POST'])
 def students():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     students=get_all_students()
     columns=get_column_names('students')
     return render_template('/admintables/students.html', students=students, columns=columns)
@@ -444,6 +497,9 @@ def get_all_time_slot():
 
 @app.route('/admintables/time_slot', methods=['GET', 'POST'])
 def time_slot():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     time_slot=get_all_time_slot()
     columns=get_column_names('time_slot')
     return render_template('/admintables/time_slot.html', time_slot=time_slot, columns=columns)
@@ -456,6 +512,9 @@ def get_all_lab():
 
 @app.route('/admintables/lab', methods=['GET', 'POST'])
 def lab():
+    chech_admin=auth_admin()
+    if chech_admin==False:
+        return redirect(url_for('login'))
     lab=get_all_lab()
     columns=get_column_names('lab')
     return render_template('/admintables/lab.html', lab=lab, columns=columns)
@@ -468,7 +527,7 @@ def submitadmin():
         # print(details)
         
         if details['button']=='insert':
-            # try:
+            try:
                 table_name=details['table']
                 columns=get_column_names(table_name)
                 values=[]
@@ -478,12 +537,12 @@ def submitadmin():
                 cur.execute(f"INSERT INTO {table_name} ({','.join(columns)}) VALUES ({','.join(['%s']*len(columns))})", values)
                 mysql.connection.commit()
                 cur.close()
-            #Handling errors
-            # except Exception as e:
-            #     return render_template('errorquery.html',error=e)
+            # Handling errors
+            except Exception as e:
+                return render_template('errorquery.html',error=e)
             
         elif details['button']=='select':
-            # try:
+            try:
                 table_name=details['table']
                 condition=details['Where']
                 cur = mysql.connection.cursor()
@@ -500,8 +559,8 @@ def submitadmin():
                 # print(result)
                 return render_template('/admintables/selectresult.html',result=result,column_names=column_names,list_length=list_length)
             #Handling errors
-            # except Exception as e:
-            #     return render_template('errorquery.html',error=e)
+            except Exception as e:
+                return render_template('errorquery.html',error=e)
             
         elif details['button']=='delete':
             try:
@@ -744,7 +803,10 @@ def fetch_grant_inventory(email):
     cur.execute("SELECT * FROM inventory WHERE Lab_Name = %s", (lab_name[0],))
     inventory = cur.fetchall()  # Fetch all rows
     return grants,inventory
-
+def auth_admin():
+    if 'loggedin' not in session or session.get('email')!='admin@gmail.com' or session.get('password')!='admin':
+        return False
+    return True
 
 @app.errorhandler(404) 
 def invalid_route(e): 
