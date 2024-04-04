@@ -31,8 +31,8 @@ This lab management website, created by SQL Dummies, is a platform designed to o
 ## Steps to run Web-app:
 1. Install the libraries for requirements.txt:
 <code> pip install -r requirements.txt</code>    
-3. Clone the repository : [`<`link`>`](https://github.com/kaushal-003/DBMS_frontend) 
- Terminal: `git clone https://github.com/kaushal-003/DBMS_frontend`
+3. Clone the repository : [`<`link`>`](https://github.com/kaushal-003/LabManagementWebApp.git) 
+ Terminal: `git clone https://github.com/kaushal-003/LabManagementWebApp.git`
  <br><br>
 4. Run the SQL script in the MySQL Workbench:
     - Go to File > Run SQL script.. choose the .sql file([sql script](src\bookings.sql), and click Run.
