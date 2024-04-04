@@ -468,7 +468,7 @@ def submitadmin():
         # print(details)
         
         if details['button']=='insert':
-            try:
+            # try:
                 table_name=details['table']
                 columns=get_column_names(table_name)
                 values=[]
@@ -479,8 +479,8 @@ def submitadmin():
                 mysql.connection.commit()
                 cur.close()
             #Handling errors
-            except Exception as e:
-                return render_template('errorquery.html',error=e)
+            # except Exception as e:
+            #     return render_template('errorquery.html',error=e)
             
         elif details['button']=='select':
             # try:

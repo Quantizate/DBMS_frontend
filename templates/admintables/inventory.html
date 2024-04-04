@@ -366,6 +366,11 @@ else{
                     const renameBtn = document.getElementById('renameBtn');
                     const updateBtn = document.getElementById('updateBtn');
                     const insertBtn = document.getElementById('insertBtn');
+                    const selectBtn = document.getElementById('selectBtn');
+
+                    selectBtn.addEventListener('click', () => {
+                        updateForm(form, columns, 'select');
+                    });
 
                     deleteBtn.addEventListener('click', () => {
                         updateForm(form, columns, 'delete');
