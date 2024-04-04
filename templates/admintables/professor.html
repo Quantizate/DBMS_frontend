@@ -60,6 +60,7 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Office Number</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email ID</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Password</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -73,6 +74,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ booking[7] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[8] }}</td>
                         </tr>
                         {% endfor %}
 
@@ -158,6 +160,9 @@
                             else if(columns[i]=='Email_ID'){
                                 input.setAttribute('type', 'email');
                             } 
+                            else if(columns[i]=='password'){
+                                input.setAttribute('type', 'password');
+                            }
                             form.appendChild(input);
                         }
 
@@ -359,7 +364,7 @@ else{
     }
                 
             document.addEventListener('DOMContentLoaded', function () {
-                const columns = ['Employee_ID', 'First_Name', 'Middle_Name', 'Last_Name', 'Grant_Aid', 'Office_Number', 'Email_ID', 'Contact']
+                const columns = ['Employee_ID', 'First_Name', 'Middle_Name', 'Last_Name', 'Grant_Aid', 'Office_Number', 'Email_ID', 'Contact', 'password']
                 const form = create_form(columns, 'insert');
                 form.id = 'dynamicForm';
                 document.body.appendChild(form);
