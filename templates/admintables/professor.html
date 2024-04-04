@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Management</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> 
+    <link href="output.css" rel="stylesheet">
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            background-color: #f3f4f6;
+            /* Light grey background */
+        }
+
+        /* Style for the navbar */
+        .navbar {
+            background-color: #4a5568;
+            /* Dark grey navbar */
+        }
+
+        /* Style for the form */
+        .form-container {
+            background-color: #fff;
+            /* White background for the form */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="text-gray-600 body-font shadow-lg bg-white">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <div class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP8BjSsGYnOeIFaSgjqS04Uv76aH5Kx7aklQ&s" alt="logo" class="w-1/12 mr-4">
+                <h1 class="text-2xl font-bold">Lab Management</h1>
+            </div>
+
+            <ul class="md:ml-auto flex flex-wrap text-base float-right">
+                <li><a href="login" class="mr-5 hover:text-gray-900">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="justify-center flex flex-col">
+        <div id="BookingsTable" class="mt-6 overflow-hidden">
+            <div class="max-h-80 overflow-y-auto">
+                <h2 class="text-xl font-semibold mb-2"> List of Professors : </h2>
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee ID</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Middle Name</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grant Aid</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Office Number</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email ID</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Password</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for booking in professor %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[0] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[1] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[2] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[3] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[7] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ booking[8] }}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="container mx-auto p-4">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl">Select Action</h1>
+            </div>
+
+            <!-- Action Selection -->
+            <div class="flex justify-center">
+                <div class="mx-10">
+                    <button id="selectBtn"
+                        class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Select</button>
+                </div>
+                <div class="mx-10">
+                    <button id="deleteBtn"
+                        class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Delete</button>
+                </div>
+                <div class="mx-10">
+                    <button id="renameBtn"
+                        class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Rename</button>
+                </div>
+                <div class="mx-10">
+                    <button id="updateBtn"
+                        class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Update</button>
+                </div>
+                <div class="mx-10">
+                    <button id="insertBtn"
+                        class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Insert</button>
+                </div>
+
+            </div>
+
+
+            <script>
+                // Add your JavaScript code here
+            
+    function create_form(columns, button) {
+    if(button == 'insert') {
+        
+    
+    const form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('class', 'form-container rounded-lg px-8 pt-6 pb-8 mt-6');
+    form.setAttribute('id', 'dynamicForm');
+    form.setAttribute('action', "/submitadmin");
+    
+    // Clear any existing content in the form
+    form.innerHTML = '';
+    const buttonInput = document.createElement('input');
+    buttonInput.setAttribute('type', 'hidden');
+    buttonInput.setAttribute('name', 'button');
+    buttonInput.setAttribute('value', button);
+    form.appendChild(buttonInput);
+
+    const tableInput = document.createElement('input');
+    tableInput.setAttribute('type', 'hidden');
+    tableInput.setAttribute('name', 'table');
+    tableInput.setAttribute('value', 'professor'); // Replace 'professor' with the actual table name
+    form.appendChild(tableInput);
+
+    // Create form fields dynamically based on the columns
+
+    for (let i = 0; i < columns.length; i++) {
+                            form.appendChild(document.createElement('br'));
+                            const input = document.createElement('input');
+                            input.setAttribute('type', 'text');
+                            input.setAttribute('name', columns[i]);
+                            input.setAttribute('placeholder', columns[i].replace('_', ' ')); // Replaces underscores with spaces for better display
+                            input.setAttribute('class', 'p-2 m-2');
+                            // Set input types based on column names
+                            if(columns[i]=='Grant_Aid'){
+                                input.setAttribute('type', 'number');
+                            }
+                            else if(columns[i]=='Contact'){
+                                input.setAttribute('type', 'tel');
+                            }
+                            else if(columns[i]=='Email_ID'){
+                                input.setAttribute('type', 'email');
+                            } 
+                            else if(columns[i]=='password'){
+                                input.setAttribute('type', 'password');
+                            }
+                            form.appendChild(input);
+                        }
+
+
+    form.appendChild(document.createElement('br'));
+    // Create submit button
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');
+    submitBtn.innerText = 'Submit';
+    form.appendChild(submitBtn);
+
+    return form;
+}
+
+else if(button=="select"){
+    const form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('class', 'form-container rounded-lg px-8 pt-6 pb-8 mt-6');
+    form.setAttribute('id', 'dynamicForm');
+    form.setAttribute('action', '/submitadmin');
+
+    // Clear any existing content in the form
+    form.innerHTML = '';
+
+    const buttonInput = document.createElement('input');
+    buttonInput.setAttribute('type', 'hidden');
+    buttonInput.setAttribute('name', 'button');
+    buttonInput.setAttribute('value', button);
+    form.appendChild(buttonInput);
+
+    const tableInput = document.createElement('input');
+    tableInput.setAttribute('type', 'hidden');
+    tableInput.setAttribute('name', 'table');
+    tableInput.setAttribute('value', 'professor'); // Replace 'bookings' with the actual table name
+    form.appendChild(tableInput);
+
+    // Create form fields dynamically based on the columns
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'Where');
+    input.setAttribute('placeholder','Where' );
+    input.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input);
+    form.appendChild(document.createElement('br'));
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');
+    submitBtn.innerText = 'Submit';
+    form.appendChild(submitBtn);
+
+    return form;
+}
+
+else if( button== 'update'){
+    const form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('class', 'form-container rounded-lg px-8 pt-6 pb-8 mt-6');
+    form.setAttribute('id', 'dynamicForm');
+    form.setAttribute('action', '/submitadmin');
+
+    
+
+    // Clear any existing content in the form
+    form.innerHTML = '';
+
+    const buttonInput = document.createElement('input');
+    buttonInput.setAttribute('type', 'hidden');
+    buttonInput.setAttribute('name', 'button');
+    buttonInput.setAttribute('value', button);
+    form.appendChild(buttonInput);
+
+    const tableInput = document.createElement('input');
+    tableInput.setAttribute('type', 'hidden');
+    tableInput.setAttribute('name', 'table');
+    tableInput.setAttribute('value', 'professor'); // Replace 'professor' with the actual table name
+    form.appendChild(tableInput);
+
+    // Create form fields dynamically based on the columns
+    const input2 = document.createElement('input');
+    input2.setAttribute('type', 'text');
+    input2.setAttribute('name', 'set');
+    input2.setAttribute('placeholder','Set' );
+    input2.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input2);
+    form.appendChild(document.createElement('br'));
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'where');
+    input.setAttribute('placeholder','Where' );
+    input.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input);
+    form.appendChild(document.createElement('br'));
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');
+    submitBtn.innerText = 'Submit';
+
+    form.appendChild(submitBtn);
+
+    return form;
+
+}
+else if (button == 'delete'){
+    const form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('class', 'form-container rounded-lg px-8 pt-6 pb-8 mt-6');
+    form.setAttribute('id', 'dynamicForm');
+    form.setAttribute('action', '/submitadmin');
+
+    // Clear any existing content in the form
+    form.innerHTML = '';
+
+    const buttonInput = document.createElement('input');
+    buttonInput.setAttribute('type', 'hidden');
+    buttonInput.setAttribute('name', 'button');
+    buttonInput.setAttribute('value', button);
+    form.appendChild(buttonInput);
+
+    const tableInput = document.createElement('input');
+    tableInput.setAttribute('type', 'hidden');
+    tableInput.setAttribute('name', 'table');
+    tableInput.setAttribute('value', 'professor'); // Replace 'professor' with the actual table name
+    form.appendChild(tableInput);
+
+    // Create form fields dynamically based on the columns
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'Where');
+    input.setAttribute('placeholder','Where' );
+    input.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input);
+    form.appendChild(document.createElement('br'));
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');
+    submitBtn.innerText = 'Submit';
+    form.appendChild(submitBtn);
+
+    return form;
+}
+else{
+    const form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('class', 'form-container rounded-lg px-8 pt-6 pb-8 mt-6');
+    form.setAttribute('id', 'dynamicForm');
+    form.setAttribute('action', '/submitadmin');
+
+    
+
+    // Clear any existing content in the form
+    form.innerHTML = '';
+
+    const buttonInput = document.createElement('input');
+    buttonInput.setAttribute('type', 'hidden');
+    buttonInput.setAttribute('name', 'button');
+    buttonInput.setAttribute('value', button);
+    form.appendChild(buttonInput);
+
+    const tableInput = document.createElement('input');
+    tableInput.setAttribute('type', 'hidden');
+    tableInput.setAttribute('name', 'table');
+    tableInput.setAttribute('value', 'professor'); // Replace 'professor' with the actual table name
+    form.appendChild(tableInput);
+
+    // Create form fields dynamically based on the columns
+    const input2 = document.createElement('input');
+    input2.setAttribute('type', 'text');
+    input2.setAttribute('name', 'table');
+    input2.setAttribute('placeholder','Table Name' );
+    input2.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input2);
+    form.appendChild(document.createElement('br'));
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'new_table');
+    input.setAttribute('placeholder','Rename To' );
+    input.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input);
+    form.appendChild(document.createElement('br'));
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');
+    submitBtn.innerText = 'Submit';
+
+    form.appendChild(submitBtn);
+
+    return form;
+
+}
+}
+
+            
+        function updateForm(form, columns, button) {
+        const new_form = create_form(columns, button);
+        const currentForm = document.getElementById('dynamicForm');
+        document.body.replaceChild(new_form, currentForm);
+
+    }
+                
+            document.addEventListener('DOMContentLoaded', function () {
+                const columns = ['Employee_ID', 'First_Name', 'Middle_Name', 'Last_Name', 'Grant_Aid', 'Office_Number', 'Email_ID', 'Contact', 'password']
+                const form = create_form(columns, 'insert');
+                form.id = 'dynamicForm';
+                document.body.appendChild(form);
+                const deleteBtn = document.getElementById('deleteBtn');
+                const renameBtn = document.getElementById('renameBtn');
+                const updateBtn = document.getElementById('updateBtn');
+                const insertBtn = document.getElementById('insertBtn');
+                const selectBtn = document.getElementById('selectBtn');
+
+                selectBtn.addEventListener('click', () => {
+                    updateForm(form, columns, 'select');
+                });
+    
+                deleteBtn.addEventListener('click', () => {
+                    updateForm(form, columns, 'delete');
+                });
+        
+                renameBtn.addEventListener('click', () => {
+                    updateForm(form, columns, 'rename');
+                });
+        
+                updateBtn.addEventListener('click', () => {
+                    updateForm(form, columns, 'update');
+                });
+        
+                insertBtn.addEventListener('click', () => {
+                   updateForm(form, columns, 'insert');     
+                });
+            }); 
+            </script>
+                
+
+        </div>
+    
+
+    </div>
+</body>
+
+</html> 

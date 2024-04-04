@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <div id="page-container" class="mx-auto flex min-h-screen w-full min-w-[320px] flex-col bg-gray-100 ">
+        <main id="page-content" class="flex max-w-full flex-auto flex-col">
+            <div class="relative mx-auto flex min-h-screen w-full max-w-3xl items-center justify-center p-4 lg:p-8">
+                <section class="w-full max-w-xl py-6">
+                    <header class="mb-10 text-center">
+                        <div class="text-center">
+                            <h1 class="mb-2 inline-flexitems-center space-x-2 text-2xl font-bold">
+                                <div>
+                                    <img src="../static/images/logo.png" alt="" class="inline-block mx-1" width="100">
+                                </div>
+                                <span>Lab Management System</span>
+                            </h1>
+                        </div>
+                        <h2 class="text-sm font-medium text-gray-500">
+                            Create an account to access the dashboard
+                        </h2>
+                    </header>
+
+                    <!-- Registration Form -->
+                    <div class="flex flex-col overflow-hidden rounded-lg bg-white shadow-sm">
+                        <div class="grow p-5 md:px-10 md:py-8">
+                            <form id="registerForm" class="space-y-6" action="/register" method="POST">
+                                <div class="space-y-2">
+                                    <label for="reg_email" class="text-sm font-medium">Email</label>
+                                    <input type="email" id="reg_email" name="reg_email" placeholder="Enter your email"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="roll number" class="text-sm font-medium">Roll Number/Employee ID</label>
+                                    <input type="text" id="roll number" name="roll number"
+                                        placeholder="Enter your Roll Number/Employee ID"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="first name" class="text-sm font-medium">First Name</label>
+                                    <input type="text" id="first name" name="first name"
+                                        placeholder="Enter your first name"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="middle name" class="text-sm font-medium">Middle Name</label>
+                                    <input type="text" id="middle name" name="middle name"
+                                        placeholder="Enter your middle name"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="last name" class="text-sm font-medium">Last Name</label>
+                                    <input type="text" id="last name" name="last name"
+                                        placeholder="Enter your last name"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="role" class="text-sm font-medium">Role</label>
+                                    <div class="mt-2">
+                                        <input type="radio" id="role" name="role" value="student" class="mr-1"> Student
+                                        <input type="radio" id="role" name="role" value="professor"
+                                            class="ml-3 mr-1">Professor
+                                        <input type="radio" id="role" name="role" value="staff" class="ml-3 mr-1"> Staff
+                                        <!-- <input type="radio" id="role" name="role" value="staff" class="ml-3 mr-1"> Lab -->
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="Lab name" class="text-sm font-medium">Lab Name</label>
+                                    <input type="text" id="lab name" name="Lab name"
+                                        placeholder="Only enter if you are a staff member"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="reg_password" class="text-sm font-medium">Password</label>
+                                    <input type="password" id="reg_password" name="reg_password"
+                                        placeholder="Enter your password"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="confirm_password" class="text-sm font-medium">Confirm
+                                        Password</label>
+                                    <input type="password" id="confirm_password" name="confirm_password"
+                                        placeholder="Confirm your password"
+                                        class="block w-full rounded-lg border border-gray-200 px-4 py-2 leading-5 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                </div>
+
+                                <div class="my-5" id="alert_pass" style="display: none;">
+
+                                </div>
+
+                                <div>
+                                    <button type="submit"
+                                        class="inline-flex w-full items-center justify-center space-x-2 rounded-lg border border-green-700 bg-green-700 px-6 py-3 font-semibold leading-6 text-white hover:border-green-600 hover:bg-green-600 hover:text-white focus:ring focus:ring-green-400 focus:ring-opacity-50 active:border-green-700 active:bg-green-700">
+                                        <span>Register</span>
+                                    </button>
+                                </div>
+                                <div class="text-center text-sm text-gray-600 mt-2">
+                                    <span>Already have an account?</span>
+                                    <a href="/login" class="text-blue-600 hover:underline">Sign in here</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END Registration Form -->
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+
+<script>
+    document.getElementById('reg_password').addEventListener('input', function (e) {
+        let pass = e.target.value;
+        var errorMessage = '';
+
+        if (pass.length < 6) {
+            errorMessage = "Password length is less than 6 characters";
+        }
+        else if (!/[A-Z]/.test(pass)) {
+            errorMessage = "Password must contain atleast one uppercase letter.";
+        }
+        else if (!/[a-z]/.test(pass)) {
+            errorMessage = "Password must contain atleast one lowercase letter.";
+        }
+        else if (!/[0-9]/.test(pass)) {
+            errorMessage = "Password must contain atleast one number.";
+        }
+
+        if (errorMessage != '') {
+            console.log(errorMessage);
+            document.getElementById('alert_pass').style.display = 'block';
+            document.getElementById('alert_pass').innerHTML = `
+            <div class="rounded-md bg-red-100 p-4">
+                <p class="flex items-center text-sm font-medium text-[#BC1C21]">
+                  <span class="bg-red-600 mr-3 flex h-5 w-5 items-center justify-center rounded-full">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_961_15656)">
+                        <path
+                          d="M6 0.337494C2.86875 0.337494 0.3375 2.86874 0.3375 5.99999C0.3375 9.13124 2.86875 11.6812 6 11.6812C9.13125 11.6812 11.6813 9.13124 11.6813 5.99999C11.6813 2.86874 9.13125 0.337494 6 0.337494ZM6 10.8375C3.3375 10.8375 1.18125 8.66249 1.18125 5.99999C1.18125 3.33749 3.3375 1.18124 6 1.18124C8.6625 1.18124 10.8375 3.35624 10.8375 6.01874C10.8375 8.66249 8.6625 10.8375 6 10.8375Z"
+                          fill="white" />
+                        <path
+                          d="M7.725 4.25625C7.55625 4.0875 7.29375 4.0875 7.125 4.25625L6 5.4L4.85625 4.25625C4.6875 4.0875 4.425 4.0875 4.25625 4.25625C4.0875 4.425 4.0875 4.6875 4.25625 4.85625L5.4 6L4.25625 7.14375C4.0875 7.3125 4.0875 7.575 4.25625 7.74375C4.33125 7.81875 4.44375 7.875 4.55625 7.875C4.66875 7.875 4.78125 7.8375 4.85625 7.74375L6 6.6L7.14375 7.74375C7.21875 7.81875 7.33125 7.875 7.44375 7.875C7.55625 7.875 7.66875 7.8375 7.74375 7.74375C7.9125 7.575 7.9125 7.3125 7.74375 7.14375L6.6 6L7.74375 4.85625C7.89375 4.6875 7.89375 4.425 7.725 4.25625Z"
+                          fill="white" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_961_15656">
+                          <rect width="12" height="12" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </span>
+                  ${errorMessage}
+                </p>
+              </div>
+            `;
+        }
+        else {
+            document.getElementById('alert_pass').style.display = 'none';
+        }
+    })
+
+    document.getElementById('confirm_password').addEventListener('input', function (e) {
+        let pass = document.getElementById('reg_password').value;
+        let confirm_pass = e.target.value;
+        var errorMessage = '';
+
+        if (pass != confirm_pass) {
+            errorMessage = "Passwords do not match";
+        }
+
+        if (errorMessage != '') {
+            console.log(errorMessage);
+            document.getElementById('alert_pass').style.display = 'block';
+            document.getElementById('alert_pass').innerHTML = `
+            <div class="rounded-md bg-red-100 p-4">
+                <p class="flex items-center text-sm font-medium text-[#BC1C21]">
+                  <span class="bg-red-600 mr-3 flex h-5 w-5 items-center justify-center rounded-full">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_961_15656)">
+                        <path
+                          d="M6 0.337494C2.86875 0.337494 0.3375 2.86874 0.3375 5.99999C0.3375 9.13124 2.86875 11.6812 6 11.6812C9.13125 11.6812 11.6813 9.13124 11.6813 5.99999C11.6813 2.86874 9.13125 0.337494 6 0.337494ZM6 10.8375C3.3375 10.8375 1.18125 8.66249 1.18125 5.99999C1.18125 3.33749 3.3375 1.18124 6 1.18124C8.6625 1.18124 10.8375 3.35624 10.8375 6.01874C10.8375 8.66249 8.6625 10.8375 6 10.8375Z"
+                          fill="white" />
+                        <path
+                          d="M7.725 4.25625C7.55625 4.0875 7.29375 4.0875 7.125 4.25625L6 5.4L4.85625 4.25625C4.6875 4.0875 4.425 4.0875 4.25625 4.25625C4.0875 4.425 4.0875 4.6875 4.25625 4.85625L5.4 6L4.25625 7.14375C4.0875 7.3125 4.0875 7.575 4.25625 7.74375C4.33125 7.81875 4.44375 7.875 4.55625 7.875C4.66875 7.875 4.78125 7.8375 4.85625 7.74375L6 6.6L7.14375 7.74375C7.21875 7.81875 7.33125 7.875 7.44375 7.875C7.55625 7.875 7.66875 7.8375 7.74375 7.74375C7.9125 7.575 7.9125 7.3125 7.74375 7.14375L6.6 6L7.74375 4.85625C7.89375 4.6875 7.89375 4.425 7.725 4.25625Z"
+                          fill="white" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_961_15656">
+                          <rect width="12" height="12" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </span>
+                  ${errorMessage}
+                </p>
+              </div>
+            `;
+        }
+        else {
+            document.getElementById('alert_pass').style.display = 'none';
+        }
+    })
+</script>
+
+</html>
