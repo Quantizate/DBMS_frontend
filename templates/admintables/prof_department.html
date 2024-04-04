@@ -78,6 +78,10 @@
             <!-- Action Selection -->
             <div class="flex justify-center">
                 <div class="mx-10">
+                    <button id="selectBtn"
+                        class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Select</button>
+                </div>
+                <div class="mx-10">
                     <button id="deleteBtn"
                         class="action-btn capitalize bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-8 rounded-full transition-colors duration-300 ease-in-out">Delete</button>
                 </div>
@@ -140,6 +144,45 @@
 
     form.appendChild(document.createElement('br'));
     // Create submit button
+    const submitBtn = document.createElement('button');
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');
+    submitBtn.innerText = 'Submit';
+    form.appendChild(submitBtn);
+
+    return form;
+}
+
+else if(button="select"){
+    const form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('class', 'form-container rounded-lg px-8 pt-6 pb-8 mt-6');
+    form.setAttribute('id', 'dynamicForm');
+    form.setAttribute('action', '/submitadmin');
+
+    // Clear any existing content in the form
+    form.innerHTML = '';
+
+    const buttonInput = document.createElement('input');
+    buttonInput.setAttribute('type', 'hidden');
+    buttonInput.setAttribute('name', 'button');
+    buttonInput.setAttribute('value', button);
+    form.appendChild(buttonInput);
+
+    const tableInput = document.createElement('input');
+    tableInput.setAttribute('type', 'hidden');
+    tableInput.setAttribute('name', 'table');
+    tableInput.setAttribute('value', 'bookings'); // Replace 'bookings' with the actual table name
+    form.appendChild(tableInput);
+
+    // Create form fields dynamically based on the columns
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'Where');
+    input.setAttribute('placeholder','Where' );
+    input.setAttribute('class', 'p-2 m-2');
+    form.appendChild(input);
+    form.appendChild(document.createElement('br'));
     const submitBtn = document.createElement('button');
     submitBtn.setAttribute('type', 'submit');
     submitBtn.setAttribute('class', 'bg-blue-500 text-white p-2 m-2');

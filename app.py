@@ -18,7 +18,7 @@ app.secret_key = 'abcd2123445'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = '@B203kairavi'
 app.config['MYSQL_DB'] = 'lab_bookings'
 
 mysql = MySQL(app)
@@ -481,6 +481,27 @@ def submitadmin():
             except Exception as e:
                 return render_template('errorquery.html',error=e)
             
+        elif details['button']=='select':
+            # try:
+                table_name=details['table']
+                condition=details['Where']
+                cur = mysql.connection.cursor()
+                cur.execute(f"SELECT * FROM {table_name} WHERE {condition}")
+                result = cur.fetchall()
+                cur.close()
+                column_names=get_column_names(table_name)
+                
+                #Capitalize the first letter of each column name and replace _ with space
+                column_names=[column.replace('_',' ').capitalize() for column in column_names]
+                length=len(column_names)
+                #List having numbers from 0 to length-1
+                list_length=[i for i in range(length)]
+                # print(result)
+                return render_template('/admintables/selectresult.html',result=result,column_names=column_names,list_length=list_length)
+            #Handling errors
+            # except Exception as e:
+            #     return render_template('errorquery.html',error=e)
+            
         elif details['button']=='delete':
             try:
                 table_name=details['table']
@@ -521,7 +542,12 @@ def submitadmin():
             
             
         return render_template('submitadmin.html')
-    
+ 
+@app.route('/admintables/selectresult', methods=['GET', 'POST']) 
+def selectresult():
+    return render_template('/admintables/selectresult.html')
+ 
+ 
 @app.route('/table', methods=['GET', 'POST'])
 def table():
         bookings,equipment_issued,courses, inventory , student_enrolled, accessed_tool ,course_slot =fetch_all()
