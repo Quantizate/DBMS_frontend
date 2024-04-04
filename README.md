@@ -34,8 +34,11 @@ A
 <br>
     - This script will create a database called **lab_bookings**, corresponding tables, and it will insert some pre-required data into the tables.
   <br><br>
-1. Run the [app.py](app.py) 
-    Code: `python app.py`
+1. Run the app.py code. 
+<br>
+<code>
+python app.py
+</code>
 
 ## Login Page:
 <img src="images\admin_operations\login_page\1.png" alt="dummy_data_1" style="border: 2px solid black;">
