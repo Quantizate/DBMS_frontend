@@ -40,7 +40,7 @@ A
 <br>
     - This script will create a database called lab_bookings, corresponding tables, and it will insert some pre-required data into the tables.
   <br><br>
-1. Run the app.py code. 
+3. Run the app.py code. 
 <br>
 <code>python app.py</code>
 
