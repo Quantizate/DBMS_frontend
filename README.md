@@ -162,8 +162,12 @@ Before: <img src="images\admin_operations\where\lab_booking\before.jpg" alt="dum
 
 After: <img src="images\admin_operations\where\lab_booking\after.jpg" alt="dummy_data_2"  >
 
-### RENAME:
+### 5. RENAME:
+Data: <img src="images\admin_operations\data.jpg" alt="dummy_data_2"  >
 
+Before: <img src="images\admin_operations\before_query.jpg" alt="dummy_data_2"  >
+
+After: <img src="images\admin_operations\after.jpg" alt="dummy_data_2"  >
 
 ## Views:
 ### 1. Admin:
