@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="../static/styles/output.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="text-gray-600 body-font shadow-lg bg-white">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <div class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <img src="../static/images/logo.png" alt="logo" class="w-1/12 mr-4">
+                <h1 class="text-2xl font-bold">Lab Management</h1>
+            </div>
+
+            <ul class="md:ml-auto flex flex-wrap text-base float-right">
+                <li><a href="bookinglab" class="mr-5 hover:text-gray-900">Home</a></li>
+                <li><a href="profile" class="mr-5 hover:text-gray-900">Profile</a></li>
+                <li><a href="login" class="mr-5 hover:text-gray-900">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- User Profile Section -->
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">User Profile</h1>
+
+        {% if role == 'student' %}
+        <!-- Student Profile -->
+        <div class="flex items-center mb-4">
+            <div class="w-20 h-20 rounded-full overflow-hidden mr-4">
+                <img src="https://miro.medium.com/v2/resize:fit:1400/1*o68yfo8-S-pnG9KLLG3OAA.png" alt="Student Image"
+                    class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h2 class="text-xl font-bold"> {{name}}</h2>
+                <p class="text-gray-600">{{ role }}</p>
+            </div>
+        </div>
+        {% elif role == 'professor' %}
+        <!-- Professor Profile -->
+        <div class="flex items-center mb-4">
+            <div class="w-20 h-20 rounded-full overflow-hidden mr-4">
+                <img src="https://i.pinimg.com/236x/cf/0b/74/cf0b7475f26c043b55fe50cfb98c15d5.jpg" alt="Professor Image"
+                    class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h2 class="text-xl font-bold">{{name}}</h2>
+                <p class="text-gray-600">{{ role }}</p>
+            </div>
+        </div>
+        {% elif role == 'staff' %}
+        <!-- Staff Profile -->
+        <div class="flex items-center mb-4">
+            <div class="w-20 h-20 rounded-full overflow-hidden mr-4">
+                <img src="https://64.media.tumblr.com/0ca25b37917bc347d7b1554605cfa392/8030b39c24c09f41-ca/s400x600/6142290337081481b8b44ab03bbe8ef1d9dddfa1.png"
+                    alt="Staff Image" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h2 class="text-xl font-bold">{{name}}</h2>
+                <p class="text-gray-600">{{ role }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if role == "student" %}
+        <!-- Equipment Issued -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Equipment Issued</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment ID</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Lab Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Issue Date</th>
+                        <!-- <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment ID</th> -->
+                        <!-- <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Return by</th> -->
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for equipment in equipment_issued %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment_details_list[loop.index0][1]|capitalize }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment_details_list[loop.index0][7] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[1] }}</td> -->
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lab Bookings -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Lab Bookings</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab
+                            Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
+                            Slot</th>
+                        <!-- <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date
+                        </th> -->
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for booking in lab_bookings %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[3] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Courses -->
+        <div>
+            <h2 class="text-xl font-bold mb-2">Courses</h2>
+            <ul class="list-disc list-inside">
+                {% for course in courses %}
+                <li>{{ course[0] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% elif role=="professor" %}
+        <!-- Lab Bookings -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Lab Bookings</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab
+                            Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time
+                            Slot</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for booking in lab_bookings %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[3] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[4] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ booking[5] }}</td>
+                        <!-- <td class="px-6 py-4 whitespace-nowrap">{{ booking[6] }}</td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!--Courses Offerings-->
+        <div>
+            <h2 class="text-xl font-bold mb-2">Courses Offerings</h2>
+            <ul class="list-disc list-inside">
+                {% for course in courses %}
+                <li>{{ course[0] }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% elif role == "lab" %}
+        <!-- Lab Equipments -->
+        <!-- Need to add equipment id and stuff -->
+        <!-- Status also needs to resolved. Need to discuss what and all to add -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Inventory</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment Id</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Equipment Name</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Price</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Vendor Address</th>
+
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Vendor Phone Number</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Manufacturer</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Quantity</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Note: Change this to available items!! using inventoryand querying through lab_name? -->
+                    {% for equipment in inventory %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[1] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[6] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[8] }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lab Grants -->
+        <!-- Dynamically add -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-2">Lab Grants</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Grant Id</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Donor</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Donor Organization</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Amount</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Receiving Date</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Note: Change this to the actual grants!! -->
+                    {% for equipment in grants %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[0] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[2] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[3] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[4] }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ equipment[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+
+    </div>
+
+</body>
+
+</html>
