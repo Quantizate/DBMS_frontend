@@ -172,24 +172,24 @@ After: <img src="images\admin_operations\after.jpg" alt="dummy_data_2"  >
 ## Views:
 ### 1. Admin:
 
-![webpage_17](images/Screenshots/17.png){:  }
+![webpage_17](images/Screenshots/17.png)
 
 ### 2. Staff:
-![webpage_22](images/Screenshots/22.png){:  }
+![webpage_22](images/Screenshots/22.png)
 
 
 ### 3. Professor:
 
 Profile:
-![webpage_18](images/Screenshots/18.png){:  }
+![webpage_18](images/Screenshots/18.png)
 
-![webpage_19](images/Screenshots/19.png){:  }
+![webpage_19](images/Screenshots/19.png)
 
 ### 4. Student:
 profile:
-![webpage_25](images/Screenshots/25.png){:  }
+![webpage_25](images/Screenshots/25.png)
 
-![webpage_26](images/Screenshots/26.png){:  }
+![webpage_26](images/Screenshots/26.png)
 
 
 
@@ -208,67 +208,107 @@ profile:
 
 
 
-![webpage_1](images/Screenshots/1.png){:  }
+![webpage_1](images/Screenshots/1.png)
 
-![webpage_2](images/Screenshots/2.png){:  }
+![webpage_2](images/Screenshots/2.png)
 
-![webpage_3](images/Screenshots/3.png){:  }
+![webpage_3](images/Screenshots/3.png)
 
-![webpage_4](images/Screenshots/4.png){:  }
+![webpage_4](images/Screenshots/4.png)
 
-![webpage_5](images/Screenshots/5.png){:  }
+![webpage_5](images/Screenshots/5.png)
 
-![webpage_6](images/Screenshots/6.png){:  }
+![webpage_6](images/Screenshots/6.png)
 
-![webpage_7](images/Screenshots/7.png){:  }
+![webpage_7](images/Screenshots/7.png)
 
-![webpage_8](images/Screenshots/8.png){:  }
+![webpage_8](images/Screenshots/8.png)
 
-![webpage_9](images/Screenshots/9.png){:  }
+![webpage_9](images/Screenshots/9.png)
 
-![webpage_10](images/Screenshots/10.png){:  }
+![webpage_10](images/Screenshots/10.png)
 
-![webpage_11](images/Screenshots/11.png){:  }
+![webpage_11](images/Screenshots/11.png)
 
-![webpage_12](images/Screenshots/12.png){:  }
+![webpage_12](images/Screenshots/12.png)
 
-![webpage_13](images/Screenshots/13.png){:  }
+![webpage_13](images/Screenshots/13.png)
 
-![webpage_14](images/Screenshots/14.png){:  }
+![webpage_14](images/Screenshots/14.png)
 
-![webpage_15](images/Screenshots/15.png){:  }
+![webpage_15](images/Screenshots/15.png)
 
-![webpage_16](images/Screenshots/16.png){:  }
+![webpage_16](images/Screenshots/16.png)
 
-![webpage_17](images/Screenshots/17.png){:  }
+![webpage_17](images/Screenshots/17.png)
 
-![webpage_18](images/Screenshots/18.png){:  }
+![webpage_18](images/Screenshots/18.png)
 
-![webpage_19](images/Screenshots/19.png){:  }
+![webpage_19](images/Screenshots/19.png)
 
-![webpage_20](images/Screenshots/20.png){:  }
+![webpage_20](images/Screenshots/20.png)
 
-![webpage_21](images/Screenshots/21.png){:  }
+![webpage_21](images/Screenshots/21.png)
 
-![webpage_22](images/Screenshots/22.png){:  }
+![webpage_22](images/Screenshots/22.png)
 
-![webpage_23](images/Screenshots/23.png){:  }
+![webpage_23](images/Screenshots/23.png)
 
-![webpage_24](images/Screenshots/24.png){:  }
+![webpage_24](images/Screenshots/24.png)
 
-![webpage_25](images/Screenshots/25.png){:  }
+![webpage_25](images/Screenshots/25.png)
 
-![webpage_26](images/Screenshots/26.png){:  }
+![webpage_26](images/Screenshots/26.png)
 
-![webpage_27](images/Screenshots/27.png){:  }
+![webpage_27](images/Screenshots/27.png)
 
-![webpage_28](images/Screenshots/28.png){:  }
+![webpage_28](images/Screenshots/28.png)
 
-![webpage_29](images/Screenshots/29.png){:  }
+![webpage_29](images/Screenshots/29.png)
 
-![webpage_30](images/Screenshots/30.png){:  }
+![webpage_30](images/Screenshots/30.png)
 
 
 ## Contributions:
+### Group 1
 
+##### Manan Jain
+- Created the front-end of the lab webpage.
+- Used HTML to create the front-end structure of the lab webpage.
+- Incorporated navbar and footer using Bootstrap.
+- Applied CSS styling to enhance the visual appearance and utilized CSS techniques such as flexbox for responsive design.
+- Contributed in the ReadMe file.
+
+##### Anish Karnik
+- Created templates related to Admin Page
+- Worked on frontend of Profile page.
+- Worked on client-side related renderings using Javascript. 
+
+##### Srujan Kumar Shetty
+- Created API routes for checking availability of lab slots and equipments. 
+- Worked on different HTML templates. 
+- Helped in styling, password constraints. 
+
+##### Husain Malawat
+- Worked on Hero page frontend. 
+- Contributed to ReadMe file. 
+- Helped in route testing, user authentication. 
+
+### Group 2
+
+##### Sachin Jalan
+- Worked on flask integration with MySQL.
+- Helped in testing routing and admin operations. 
+- Worked on routing of lab bookings, issue equipment. 
+- 
+
+##### Kaushal Kothiya
+- Worked in backend implementation of the login and authentication system recognizing different user roles.
+- Worked on designing backend routes.
+- Helped in flask integration with MySQL.
+
+##### Ameya Tajne
+- Tested the webapp, views, and dynamic operations.
+- Helped in debugging errors found during testing.
+- Provided visual documentation of the program's execution in the ReadMe file.
 
