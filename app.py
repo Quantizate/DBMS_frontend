@@ -206,6 +206,7 @@ def profile():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    session.clear()
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
