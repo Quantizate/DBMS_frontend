@@ -14,6 +14,11 @@
     - [2. UPDATE](#2-update)
     - [3. DELETE](#3-delete)
     - [4. WHERE](#4-where)
+  - [Views:](#views)
+    - [1. Admin:](#1-admin)
+    - [2. Staff:](#2-staff)
+    - [3. Professor:](#3-professor)
+    - [4. Student:](#4-student)
   - [Webpage:](#webpage)
   - [Contributions:](#contributions)
 
@@ -153,6 +158,31 @@ Data: <img src="images\admin_operations\where\lab_booking\table.jpg" alt="dummy_
 Before: <img src="images\admin_operations\where\lab_booking\before.jpg" alt="dummy_data_2" style="border: 2px solid black;">
 
 After: <img src="images\admin_operations\where\lab_booking\after.jpg" alt="dummy_data_2" style="border: 2px solid black;">
+
+## Views:
+### 1. Admin:
+
+![webpage_17](images/Screenshots/17.png){: style="border: 2px solid black;"}
+
+### 2. Staff:
+![webpage_22](images/Screenshots/22.png){: style="border: 2px solid black;"}
+
+
+### 3. Professor:
+
+Profile:
+![webpage_18](images/Screenshots/18.png){: style="border: 2px solid black;"}
+
+![webpage_19](images/Screenshots/19.png){: style="border: 2px solid black;"}
+
+### 4. Student:
+profile:
+![webpage_25](images/Screenshots/25.png){: style="border: 2px solid black;"}
+
+![webpage_26](images/Screenshots/26.png){: style="border: 2px solid black;"}
+
+
+
 
 ## Webpage:
 
