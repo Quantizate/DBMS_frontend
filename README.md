@@ -14,6 +14,7 @@
     - [2. UPDATE](#2-update)
     - [3. DELETE](#3-delete)
     - [4. WHERE](#4-where)
+    - [RENAME:](#rename)
   - [Views:](#views)
     - [1. Admin:](#1-admin)
     - [2. Staff:](#2-staff)
@@ -159,6 +160,9 @@ Before: <img src="images\admin_operations\where\lab_booking\before.jpg" alt="dum
 
 After: <img src="images\admin_operations\where\lab_booking\after.jpg" alt="dummy_data_2" style="border: 2px solid black;">
 
+### RENAME:
+
+
 ## Views:
 ### 1. Admin:
 
@@ -183,8 +187,20 @@ profile:
 
 
 
-
 ## Webpage:
+
+<img src="images\admin_operations\hero_page\1.png" alt="dummy_data_1" style="border: 2px solid black;">
+
+<img src="images\admin_operations\hero_page\2.png" alt="dummy_data_1" style="border: 2px solid black;">
+
+<img src="images\admin_operations\hero_page\3.png" alt="dummy_data_1" style="border: 2px solid black;">
+
+<img src="images\admin_operations\login_page\1.png" alt="dummy_data_1" style="border: 2px solid black;">
+
+
+<img src="images\admin_operations\login_page\2.png" alt="dummy_data_1" style="border: 2px solid black;">
+
+
 
 ![webpage_1](images/Screenshots/1.png){: style="border: 2px solid black;"}
 
