@@ -32,13 +32,11 @@ A
 <br>
     **Note:** The database should be visible in navigation pane: <img src="images\setup\navigation.png" alt="navigation_pane" style="border: 2px solid black;">
 <br>
-    - This script will create a database called **lab_bookings**, corresponding tables, and it will insert some pre-required data into the tables.
+    - This script will create a database called lab_bookings, corresponding tables, and it will insert some pre-required data into the tables.
   <br><br>
 1. Run the app.py code. 
 <br>
-<code>
-python app.py
-</code>
+<code>python app.py</code>
 
 ## Login Page:
 <img src="images\admin_operations\login_page\1.png" alt="dummy_data_1" style="border: 2px solid black;">
